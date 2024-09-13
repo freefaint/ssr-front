@@ -1,0 +1,13 @@
+TOOLS = [dotnetInstallation: 'dotnet_6.0']
+TOOLSFront = [nodejsInstallation: 'nodejs_16.13.0']
+KUBECTL_VERSION = 'kubectl_1.17.2'
+GROUP_NAME = 'mes'
+PROJECT_NAME = 'yagok-ssr-mobile'
+PROJECT_PATH = GROUP_NAME + '/' + PROJECT_NAME
+REGISTRY = 'docker.repo.severstal.severstalgroup.com'
+APPSCREENER_UUID = ''
+SONAR_APP_KEY = 'mes_yagok-ssr-mobile'
+SONAR_APP_NAME = 'MES/yagok-ssr-mobile'
+APP_LANG = 'C#'
+APP_ARTIFACTS = [[artifactId: 'yagok-ssr-mobile', fileName: 'yagok-ssr-mobile.zip', path: './Bivgroup.YagokSSR.SmartApp/Bivgroup.YagokSSR.SmartApp', type:'zip', kind: 'yagok-ssr-mobile']]
+APP_ARTIFACTS_F = [[artifactId: 'web', fileName: 'web.zip', path: './frontend', type:'zip', kind: 'web']]

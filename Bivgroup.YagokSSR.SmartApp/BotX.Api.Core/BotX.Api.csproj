@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DocumentationFile>C:\dev\okobot\src\BotX.Api\BotX.Api.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Version>0.0.67-alpha</Version>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<Company>I-Teco</Company>
+		<PackageId>BotX.Api.Core</PackageId>
+		<Authors>Gudov A.</Authors>
+		<Copyright>I-Teco</Copyright>
+		<PackageTags>Express Bot ChatBot BotX</PackageTags>
+		<Description />
+		<PackageReleaseNotes></PackageReleaseNotes>
+		<SignAssembly>true</SignAssembly>
+		<AssemblyOriginatorKeyFile>key.pfx.snk</AssemblyOriginatorKeyFile>
+		<FileVersion>0.0.0.0</FileVersion>
+		<AssemblyVersion>0.0.0.0</AssemblyVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Remove="BotX.Api.xml" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Flurl" Version="3.0.5" />
+		<PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+		<PackageReference Include="Microsoft.AspNetCore.Routing" Version="2.2.2" />
+		<PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="3.0.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="3.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="Microsoft.AspNetCore.Mvc.Core">
+			<HintPath>..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.aspnetcore.mvc.core\2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Mvc.Core.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+</Project>

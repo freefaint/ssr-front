@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "./frontend"
+		}
+	],
+	"settings": {
+		"editor.defaultFormatter": "rome.rome",
+		"editor.formatOnPaste": true,
+		"editor.formatOnSave": true,
+		"cSpell.words": [
+			"consts",
+			"huid"
+		],
+		"svg.preview.background": "black"
+	}
+}

@@ -1,0 +1,13 @@
+env.K8S_NAMESPACE = 'webmes-test'
+env.K8S_VERSION=sh(returnStdout: true, script: "echo ${version}").trim()
+env.K8S_IMAGE=sh(returnStdout: true, script: "echo ${REGISTRY}/${PROJECT_PATH}").trim()
+env.K8S_CREDENTIALS = 'k8s-test-int'
+env.K8S_DOMAIN = 'yagok-ssr-mobile.kube.severstal.severstalgroup.com'
+env.K8S_CPU_LIMIT = '500m'
+env.K8S_MEMORY_LIMIT = '512Mi'
+env.K8S_CPU_REQUEST = '100m'
+env.K8S_MEMORY_REQUEST = '512Mi'
+env.SQP_DOMAIN_NAME = "yagok-ssr-mobile.kube.severstal.severstalgroup.com"
+env.BOT_CTS = "https://yagok-ssr-mobile.kube.severstal.severstalgroup.com"
+env.BOT_ID = "00000000-0000-0000-0000-000000000000"
+env.K8S_REPLICAS='1'

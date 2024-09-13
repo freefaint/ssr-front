@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Bivgroup.YagokSSR.SmartApp": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "cts162"
+      },
+      "applicationUrl": "http://0.0.0.0:5000"
+    }
+  }
+}

@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yagok-ssr-mobile
+  namespace: {{ K8S_NAMESPACE }}
+spec:
+  selector:
+    matchLabels:
+      app: yagok-ssr-mobile
+  replicas: {{ K8S_REPLICAS }}
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: yagok-ssr-mobile
+        commit: '{{ GIT_COMMIT_SHORT }}'
+    spec:
+      containers:
+        - name: yagok-ssr-mobile
+          image: {{ K8S_IMAGE }}:{{ K8S_VERSION }}
+          imagePullPolicy: Always
+          securityContext:
+            runAsUser: 10000
+            runAsGroup: 10000
+          resources:
+            limits:
+              cpu: '{{ K8S_CPU_LIMIT }}'
+              memory: '{{ K8S_MEMORY_LIMIT }}'
+            requests:
+              cpu: '{{ K8S_CPU_REQUEST }}'
+              memory: '{{ K8S_MEMORY_REQUEST }}'
+          envFrom:
+            - secretRef:
+                name: yagok-ssr-mobile-secret
+                optional: false
+            - configMapRef:
+                name: yagok-ssr-mobile-config
+                optional: false
+          livenessProbe:
+            failureThreshold: 4
+            tcpSocket:
+              port: 5000
+            initialDelaySeconds: 40
+            periodSeconds: 15
+            successThreshold: 1
+            timeoutSeconds: 5
+          readinessProbe:
+            failureThreshold: 4
+            tcpSocket:
+              port: 5000
+            initialDelaySeconds: 15
+            periodSeconds: 15
+            successThreshold: 1
+            timeoutSeconds: 5
+        - name: nginx
+          image: docker.repo.severstal.severstalgroup.com/nginx:1.21.6
+          ports:
+            - containerPort: 80
+              name: http
+              protocol: TCP
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: nginx-template
+              mountPath: /etc/nginx/templates/
+          resources:
+            limits:
+              cpu: '{{ K8S_CPU_LIMIT }}'
+              memory: '{{ K8S_MEMORY_LIMIT }}'
+            requests:
+              cpu: '{{ K8S_CPU_REQUEST }}'
+              memory: '{{ K8S_MEMORY_REQUEST }}'
+          envFrom:
+            - secretRef:
+                name: yagok-ssr-mobile-cache-secret
+      volumes:
+        - name: nginx-template
+          configMap:
+            name: yagok-ssr-mobile-cache-nginx-template
+            items:
+              - key: default.conf.template
+                path: default.conf.template
+      imagePullSecrets:
+        - name: mes-registry

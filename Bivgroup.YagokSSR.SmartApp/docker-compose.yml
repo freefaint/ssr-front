@@ -1,0 +1,15 @@
+﻿version: "3.8"
+
+services:
+  biv-yagok-backend-smartapp:
+    image: biv-yagok-backend-smartapp:1.0.0
+    container_name: biv-yagok-backend-smartapp
+    env_file: .env
+    ports:
+      - "8000:80"  # Отредактируйте порт хоста (первый), если он уже занят
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "10"

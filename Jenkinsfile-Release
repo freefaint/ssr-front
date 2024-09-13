@@ -1,0 +1,19 @@
+@Library('svs_jenkins-library@develop') _
+
+if (gitlabActionType == 'TAG_PUSH'){
+    node('k8s-slave'){
+        stage('release docker images'){
+            checkoutRepository()
+            // получаем короткий хеш ревизии
+            GIT_COMMIT_SHORT = gitlabAfter.take(8).toString()
+            // получаем версию для релиза
+            RELEASE_VERSION = (gitlabTargetBranch =~ "refs/tags/(.*)")[0][1]
+            // релизим образ бека
+            echo GIT_COMMIT_SHORT
+            promoteDockerImage(imagePath: "${PROJECT_PATH}", srcTag: GIT_COMMIT_SHORT, dstTag: RELEASE_VERSION)
+        }
+        stage('deploy to prod'){      
+            build job: 'MES/WEBMES/yagok-ssr-mobile/DeployToProd', parameters: [ string(name: 'version', value: "${RELEASE_VERSION}") ], wait: false
+        }
+    }
+}
