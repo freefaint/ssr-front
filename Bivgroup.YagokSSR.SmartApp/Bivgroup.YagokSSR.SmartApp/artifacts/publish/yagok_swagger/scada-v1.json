@@ -1,0 +1,2863 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Upstream_API",
+    "description": "API-gateway системы Upstream",
+    "contact": {
+      "name": "Northis",
+      "url": "http://northis.ru"
+    },
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/v1/scada/archivetrends/archive": {
+      "get": {
+        "tags": [
+          "ArchiveTrends"
+        ],
+        "summary": "Возвращает исторические данные.",
+        "parameters": [
+          {
+            "name": "DateTime",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "TimeZone",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "TrendIds",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Данные успешно получены.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Northis.Upstream.Query.Contracts.Trends.ArchiveTrendDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scada/carriages/currentweight": {
+      "get": {
+        "tags": [
+          "Carriages"
+        ],
+        "summary": "Возвращает массу вагона на текущий момент.",
+        "parameters": [
+          {
+            "name": "EmptyCarriageMaxWeight",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "EmptyCarriageMinWeight",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "FullCarriageMaxWeight",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "TrendIds",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "number",
+                  "format": "float"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scada/carriages/count": {
+      "get": {
+        "tags": [
+          "Carriages"
+        ],
+        "summary": "Возвращает количество вагонов.",
+        "parameters": [
+          {
+            "name": "BeginDateTime",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "EmptyCarriageMaxWeight",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "EmptyCarriageMinWeight",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "EndDateTime",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "FullCarriageMaxWeight",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "TrendIds",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scada/carriages/weight": {
+      "get": {
+        "tags": [
+          "Carriages"
+        ],
+        "summary": "Возвращает массу вагона за период.",
+        "parameters": [
+          {
+            "name": "BeginDateTime",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "EmptyCarriageMaxWeight",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "EmptyCarriageMinWeight",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "EndDateTime",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "FullCarriageMaxWeight",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "TrendIds",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "number",
+                  "format": "float"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scada/configuration/{id}": {
+      "put": {
+        "tags": [
+          "Configuration"
+        ],
+        "summary": "Изменяет данные конфигурации элемента Scada.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Идентификатор элемента Scada.",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Данные конфигурации для изменения.",
+          "content": {
+            "application/json": {
+              "schema": { }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Конфигурация элемента Scada успешно обновлена."
+          },
+          "409": {
+            "description": "Конфликт запроса.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Конфигурация элемента Scada не существует.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Configuration"
+        ],
+        "summary": "Создает конфигурацию элемента Scada.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Идентификатор элемента Scada.",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Данные конфигурации для изменения.",
+          "content": {
+            "application/json": {
+              "schema": { }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Конфигурация элемента Scada успешно создана."
+          },
+          "409": {
+            "description": "Конфликт запроса.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Configuration"
+        ],
+        "summary": "Возвращает элемент Scada по уникальному идентификатору.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Идентификатор элемента Scada.",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Элемент Scada успешно получен.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.ScadaElementViewDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Элемент Scada не найден.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scada/configuration": {
+      "get": {
+        "tags": [
+          "Configuration"
+        ],
+        "summary": "Возвращает все конфигурации элементов Scada.",
+        "responses": {
+          "200": {
+            "description": "Элементы Scada успешно получены.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.ScadaElementViewDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scada/downtimes": {
+      "get": {
+        "tags": [
+          "Downtimes"
+        ],
+        "summary": "Возвращает все доступные описания простоев.",
+        "parameters": [
+          {
+            "name": "EquipmentName",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Name",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SourceName",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SourceType",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "IsDescending",
+            "in": "query",
+            "description": "Возвращает `true`, если порядок сортировки по убыванию.",
+            "style": "form",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "PropertyName",
+            "in": "query",
+            "description": "Возвращает строковое наименование свойства, по которому производится сортировка.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "description": "Номер страницы.",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Количество элементов на странице.",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.GetPagedItemsResponse`1[Northis.Upstream.ApiGateway.Modules.Configurator.Downtimes.Models.DowntimeView]"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scada/downtimes/{id}/duration": {
+      "get": {
+        "tags": [
+          "Downtimes"
+        ],
+        "summary": "Возвращает данные о длительности простоя за период.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Идентификатор простоя.",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.DowntimeEvents.Models.DowntimeDurationView"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scada/downtimes/{metadataId}/downtimes": {
+      "get": {
+        "tags": [
+          "Downtimes"
+        ],
+        "summary": "Возвращает данные о работе/простоях за период времени.",
+        "parameters": [
+          {
+            "name": "metadataId",
+            "in": "path",
+            "description": "Идентификатор метаданных простоя.",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "StartDateTime",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "EndDateTime",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Scada.Controllers.Models.DowntimesForPeriod"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scada/mesintegration/metadata": {
+      "get": {
+        "tags": [
+          "MesIntegration"
+        ],
+        "summary": "Возвращает метаданные интеграции по указанным критериям.",
+        "parameters": [
+          {
+            "name": "Name",
+            "in": "query",
+            "description": "Наименование.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Description",
+            "in": "query",
+            "description": "Описание.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ProductionUnitName",
+            "in": "query",
+            "description": "Наименование производственной единицы.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "IndicatorName",
+            "in": "query",
+            "description": "Наименование индикатора.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "IsFact",
+            "in": "query",
+            "description": "Значение, определяющее, что представлены фактические данные.",
+            "style": "form",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "IsDescending",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "PropertyName",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "description": "Номер страницы.",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Количество элементов на странице.",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.GetPagedItemsResponse`1[Northis.Upstream.ApiGateway.Modules.Configurator.MesIntegration.Models.MetadataView]"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scada/mesintegration/storedata": {
+      "get": {
+        "tags": [
+          "MesIntegration"
+        ],
+        "summary": "Возвращает данные для системы хранения технологических данных.",
+        "parameters": [
+          {
+            "name": "date",
+            "in": "query",
+            "description": "Дата.",
+            "style": "form",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Northis.Upstream.MesIntegration.Contracts.MesData.MesStoreDataDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scada/powerbalance": {
+      "get": {
+        "tags": [
+          "PowerBalance"
+        ],
+        "summary": "Возвращает баланс импорта/генерации.",
+        "parameters": [
+          {
+            "name": "Period",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "$ref": "#/components/schemas/Northis.Upstream.Query.Contracts.PowerBalance.PowerBalancePeriod"
+            }
+          },
+          {
+            "name": "TrendsForGeneration",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "TrendsForImport",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Northis.Upstream.Query.Contracts.PowerBalance.PowerBalanceDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scada/reports": {
+      "get": {
+        "tags": [
+          "Reports"
+        ],
+        "summary": "Возвращает отчет по сигналам.",
+        "parameters": [
+          {
+            "name": "BeginDate",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "EndDate",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "SamplingStep",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "$ref": "#/components/schemas/Northis.Upstream.Query.Contracts.SamplingStepDto"
+            }
+          },
+          {
+            "name": "SignalIds",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          },
+          {
+            "name": "TimeZone",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Отчет по сигналам успешно получен.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.SignalReport"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Отчет по сигналам не найден."
+          }
+        }
+      }
+    },
+    "/api/v1/scada/signalgroups/search": {
+      "post": {
+        "tags": [
+          "SignalGroups"
+        ],
+        "summary": "Возвращает группы с учетом фильтров.",
+        "requestBody": {
+          "description": "Набор фильтров.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.SignalGrouping.Models.SignalGroupFilterItemData"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.SignalGrouping.Models.SignalGroupFilterItemData"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.SignalGrouping.Models.SignalGroupFilterItemData"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.SignalGrouping.Models.FilterMatchSignalGroupData"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scada/signalgroups/{groupId}/signals/search": {
+      "post": {
+        "tags": [
+          "SignalGroups"
+        ],
+        "summary": "Возвращает сигналы указанной группы.",
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "Идентификатор группы.",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "FullPath",
+            "in": "query",
+            "description": "Возвращает значение фильтра по полному пути до сигнала в группе.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Name",
+            "in": "query",
+            "description": "Возвращает значение фильтра по имени.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Presentation",
+            "in": "query",
+            "description": "Возвращает значение фильтра по способу интерпретации.",
+            "style": "form",
+            "schema": {
+              "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.Signals.Models.PresentationType"
+            }
+          },
+          {
+            "name": "SignalTypeName",
+            "in": "query",
+            "description": "Возвращает значение фильтра по имени типа.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "TrendName",
+            "in": "query",
+            "description": "Возвращает значение фильтра по имени тренда.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "IsDescending",
+            "in": "query",
+            "description": "Возвращает `true`, если порядок сортировки по убыванию.",
+            "style": "form",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "PropertyName",
+            "in": "query",
+            "description": "Возвращает строковое наименование свойства, по которому производится сортировка.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Набор фильтров.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.SignalGrouping.Models.GroupSignalsRequestCriteria"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.SignalGrouping.Models.GroupSignalsRequestCriteria"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.SignalGrouping.Models.GroupSignalsRequestCriteria"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.GetPagedItemsResponse`1[Northis.Upstream.ApiGateway.Modules.Configurator.Signals.Models.Signal]"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scada/signals/{id}": {
+      "get": {
+        "tags": [
+          "Signals"
+        ],
+        "summary": "Возвращает сигнал по уникальному идентификатору.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Идентификатор сигнала.",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Сигнал успешно получен.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.Signals.Models.SignalDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Сигнал не найден.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scada/signals": {
+      "get": {
+        "tags": [
+          "Signals"
+        ],
+        "summary": "Возвращает указанную страницу сигналов.",
+        "parameters": [
+          {
+            "name": "IsDescending",
+            "in": "query",
+            "description": "Возвращает `true`, если порядок сортировки по убыванию.",
+            "style": "form",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "PropertyName",
+            "in": "query",
+            "description": "Возвращает строковое наименование свойства, по которому производится сортировка.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "FullPath",
+            "in": "query",
+            "description": "Возвращает значение фильтра по полному пути до сигнала в группе.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Name",
+            "in": "query",
+            "description": "Возвращает значение фильтра по имени.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Presentation",
+            "in": "query",
+            "description": "Возвращает значение фильтра по способу интерпретации.",
+            "style": "form",
+            "schema": {
+              "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.Signals.Models.PresentationType"
+            }
+          },
+          {
+            "name": "SignalTypeName",
+            "in": "query",
+            "description": "Возвращает значение фильтра по имени типа.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "TrendName",
+            "in": "query",
+            "description": "Возвращает значение фильтра по имени тренда.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "description": "Номер страницы.",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Количество элементов на странице.",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Список успешно получен.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.GetPagedItemsResponse`1[Northis.Upstream.ApiGateway.Modules.Configurator.Signals.Models.Signal]"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scada/telegrams/{id}": {
+      "get": {
+        "tags": [
+          "Telegrams"
+        ],
+        "summary": "Возвращает описание телеграммы по уникальному идентификатору.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Идентификатор телеграммы.",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Телеграмма успешно получена.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.Telegrams.Models.TelegramDescriptor"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Телеграмма не найдена.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scada/telegrams": {
+      "get": {
+        "tags": [
+          "Telegrams"
+        ],
+        "summary": "Возвращает указанную страницу описаний телеграмм с указанной размерностью.\r\nВ случае отсутствия одного или всех параметров возвращает все описания телеграмм.",
+        "parameters": [
+          {
+            "name": "DisplayName",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "State",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "$ref": "#/components/schemas/Northis.Upstream.Configurator.Contracts.Dto.TelegramDescriptor.DescriptorState"
+            }
+          },
+          {
+            "name": "TelegramId",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "IsDescending",
+            "in": "query",
+            "description": "Возвращает `true`, если порядок сортировки по убыванию.",
+            "style": "form",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "PropertyName",
+            "in": "query",
+            "description": "Возвращает строковое наименование свойства, по которому производится сортировка.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "description": "Номер страницы.",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Количество элементов на странице.",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Список успешно получен.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.GetPagedItemsResponse`1[Northis.Upstream.ApiGateway.Modules.Configurator.Telegrams.Models.TelegramDescriptor]"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scada/telegrams/{id}/parameters": {
+      "get": {
+        "tags": [
+          "Telegrams"
+        ],
+        "summary": "Возвращает параметры телеграммы.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Идентификатор телеграммы.",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "DisplayName",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ParameterId",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "TypeName",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "IsDescending",
+            "in": "query",
+            "description": "Возвращает `true`, если порядок сортировки по убыванию.",
+            "style": "form",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "PropertyName",
+            "in": "query",
+            "description": "Возвращает строковое наименование свойства, по которому производится сортировка.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Параметры успешно получены.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.Telegrams.Models.ParameterDescriptor"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scada/trendgroups/search": {
+      "post": {
+        "tags": [
+          "TrendGroups"
+        ],
+        "summary": "Возвращает список групп.",
+        "parameters": [
+          {
+            "name": "trendTypeKind",
+            "in": "query",
+            "description": "Вид типа тренда.",
+            "style": "form",
+            "schema": {
+              "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.Trends.Models.TypeKind"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Набор фильтров.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Northis.Upstream.Configurator.Contracts.TrendGrouping.GroupFilterRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.TrendGrouping.Models.TrendGroup"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scada/trendgroups/{groupId}/trends/search": {
+      "post": {
+        "tags": [
+          "TrendGroups"
+        ],
+        "summary": "Возвращает тренды по указанной группе.",
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "Идентификатор группы.",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Name",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "TrendTypeKind",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "$ref": "#/components/schemas/Northis.Upstream.Configurator.Contracts.Dto.TrendDescriptor.TypeKindDto"
+            }
+          },
+          {
+            "name": "TypeName",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "IsDescending",
+            "in": "query",
+            "description": "Возвращает `true`, если порядок сортировки по убыванию.",
+            "style": "form",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "PropertyName",
+            "in": "query",
+            "description": "Возвращает строковое наименование свойства, по которому производится сортировка.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "description": "Номер страницы.",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Количество описаний трендов на странице.",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Критерии фильтрации по группам и трендам.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.TrendGrouping.Models.TrendsByGroupRequestCriteria"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.GetPagedItemsResponse`1[Northis.Upstream.ApiGateway.Modules.Configurator.TrendGrouping.Models.Trend]"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scada/trends/{id}": {
+      "get": {
+        "tags": [
+          "Trends"
+        ],
+        "summary": "Возвращает описание тренда по уникальному идентификатору.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Идентификатор тренда.",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Тренд успешно получен.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.Trends.Models.TrendDescriptorDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Тренд не найден.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scada/trends": {
+      "get": {
+        "tags": [
+          "Trends"
+        ],
+        "summary": "Возвращает указанную страницу описаний трендов.\r\nВ случае отсутствия одного или всех параметров возвращает все описания трендов.",
+        "parameters": [
+          {
+            "name": "IsDescending",
+            "in": "query",
+            "description": "Возвращает `true`, если порядок сортировки по убыванию.",
+            "style": "form",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "PropertyName",
+            "in": "query",
+            "description": "Возвращает строковое наименование свойства, по которому производится сортировка.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "DisplayName",
+            "in": "query",
+            "description": "Возвращает наименование тренда.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "State",
+            "in": "query",
+            "description": "Возвращает состояние (Ready, NotReady).",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "TrendId",
+            "in": "query",
+            "description": "Возвращает идентификатор тренда.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "TypeKind",
+            "in": "query",
+            "description": "Возвращает вид типа тренда.",
+            "style": "form",
+            "schema": {
+              "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.Trends.Models.TypeKind"
+            }
+          },
+          {
+            "name": "TypeName",
+            "in": "query",
+            "description": "Возвращает наименование типа.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "description": "Номер страницы.",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Количество описаний трендов на странице.",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Список успешно получен.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.GetPagedItemsResponse`1[Northis.Upstream.ApiGateway.Modules.Configurator.Trends.Models.TrendDescriptor]"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scada/trends/production": {
+      "get": {
+        "tags": [
+          "Trends"
+        ],
+        "summary": "Возвращает рассчитанную выработку по трендам.",
+        "parameters": [
+          {
+            "name": "EndDateTime",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "StartDateTime",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "TrendIds",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Northis.Upstream.Query.Contracts.Trends.TrendProductionDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Microsoft.AspNetCore.Mvc.ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": { }
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.DowntimeEvents.Models.DowntimeDurationView": {
+        "type": "object",
+        "properties": {
+          "currentDowntimeDuration": {
+            "type": "string",
+            "description": "Возвращает длительность текущего простоя для отображения в Scada."
+          },
+          "currentDowntimeMilliseconds": {
+            "type": "string",
+            "description": "Возвращает длительность текущего простоя в миллисекундах."
+          },
+          "downtimesDurationPercent": {
+            "type": "integer",
+            "description": "Возвращает процентное отношение длительности простоев, к длительности периода запроса.",
+            "format": "int32"
+          },
+          "id": {
+            "type": "string",
+            "description": "Возвращает идентификатор простоя.",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Определяет данные о длительности простоя."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.Downtimes.Models.DowntimeView": {
+        "type": "object",
+        "properties": {
+          "equipmentName": {
+            "type": "string",
+            "description": "Возвращает наименование оборудования.",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Возвращает идентификатор.",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "description": "Возвращает наименование."
+          },
+          "sourceName": {
+            "type": "string",
+            "description": "Возвращает наименование источника."
+          },
+          "sourceType": {
+            "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.Downtimes.Models.SourceType"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Определяет метаданные простоя."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.Downtimes.Models.SourceType": {
+        "enum": [
+          "Trend",
+          "Telegram"
+        ],
+        "type": "string",
+        "description": "Определяет тип источника."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.GetPagedItemsResponse`1[Northis.Upstream.ApiGateway.Modules.Configurator.Downtimes.Models.DowntimeView]": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.Downtimes.Models.DowntimeView"
+            },
+            "description": "Массив элементов."
+          },
+          "totalCount": {
+            "type": "integer",
+            "description": "Общее число элементов.",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Определяет данные получения элементов запрошеного типа."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.GetPagedItemsResponse`1[Northis.Upstream.ApiGateway.Modules.Configurator.MesIntegration.Models.MetadataView]": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.MesIntegration.Models.MetadataView"
+            },
+            "description": "Массив элементов."
+          },
+          "totalCount": {
+            "type": "integer",
+            "description": "Общее число элементов.",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Определяет данные получения элементов запрошеного типа."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.GetPagedItemsResponse`1[Northis.Upstream.ApiGateway.Modules.Configurator.Signals.Models.Signal]": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.Signals.Models.Signal"
+            },
+            "description": "Массив элементов."
+          },
+          "totalCount": {
+            "type": "integer",
+            "description": "Общее число элементов.",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Определяет данные получения элементов запрошеного типа."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.GetPagedItemsResponse`1[Northis.Upstream.ApiGateway.Modules.Configurator.Telegrams.Models.TelegramDescriptor]": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.Telegrams.Models.TelegramDescriptor"
+            },
+            "description": "Массив элементов."
+          },
+          "totalCount": {
+            "type": "integer",
+            "description": "Общее число элементов.",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Определяет данные получения элементов запрошеного типа."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.GetPagedItemsResponse`1[Northis.Upstream.ApiGateway.Modules.Configurator.TrendGrouping.Models.Trend]": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.TrendGrouping.Models.Trend"
+            },
+            "description": "Массив элементов."
+          },
+          "totalCount": {
+            "type": "integer",
+            "description": "Общее число элементов.",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Определяет данные получения элементов запрошеного типа."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.GetPagedItemsResponse`1[Northis.Upstream.ApiGateway.Modules.Configurator.Trends.Models.TrendDescriptor]": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.Trends.Models.TrendDescriptor"
+            },
+            "description": "Массив элементов."
+          },
+          "totalCount": {
+            "type": "integer",
+            "description": "Общее число элементов.",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Определяет данные получения элементов запрошеного типа."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.MesIntegration.Models.MetadataView": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Идентификатор.",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "description": "Наименование."
+          },
+          "description": {
+            "type": "string",
+            "description": "Описание.",
+            "nullable": true
+          },
+          "indicatorName": {
+            "type": "string",
+            "description": "Наименование индикатора."
+          },
+          "productionUnitName": {
+            "type": "string",
+            "description": "Наименование производственной единицы."
+          },
+          "isFact": {
+            "type": "boolean",
+            "description": "Значение, определяющее, что представлены фактические данные."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Определяет представление метаданных для отображения."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.PageCriteria": {
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "description": "Возвращает или устанавливает номер страницы для выборки.",
+            "format": "int32",
+            "nullable": true
+          },
+          "pageSize": {
+            "type": "integer",
+            "description": "Возвращает или устанавливает количество объектов, которые необходимо получить (размер страницы).",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Представляет настройки страничной выборки."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.SignalGrouping.Models.FilterMatchSignalGroupData": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Идентификатор.",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "description": "Имя группы."
+          },
+          "parentId": {
+            "type": "string",
+            "description": "Идентификатор родительской группы.",
+            "format": "uuid",
+            "nullable": true
+          },
+          "isFilteredSatisfied": {
+            "type": "boolean",
+            "description": "Признак, удовлетворяет ли группа критериям фильтрации."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Представляет данные фильтрации групп сигналов."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.SignalGrouping.Models.GroupSignalsRequestCriteria": {
+        "type": "object",
+        "properties": {
+          "filters": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.SignalGrouping.Models.SignalGroupFilterItemData"
+            },
+            "description": "Возвращает критерии фильтрации.",
+            "nullable": true
+          },
+          "page": {
+            "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.PageCriteria"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Представляет критерии запроса группы сигналов."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.SignalGrouping.Models.SignalGroupFilterItemData": {
+        "type": "object",
+        "properties": {
+          "groupName": {
+            "type": "string",
+            "description": "Имя группы.",
+            "nullable": true
+          },
+          "signalName": {
+            "type": "string",
+            "description": "Имя сигнала.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Представляет данные фильтрации групп сигналов."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.Signals.Models.NormalizationInfo": {
+        "type": "object",
+        "properties": {
+          "maxDest": {
+            "type": "number",
+            "description": "Возвращает максимальную границу нормализованного значения тренда.",
+            "format": "float"
+          },
+          "maxSource": {
+            "type": "number",
+            "description": "Возвращает максимальную границу исходного значения тренда.",
+            "format": "float"
+          },
+          "minDest": {
+            "type": "number",
+            "description": "Возвращает минимальную границу нормализованного значения тренда.",
+            "format": "float"
+          },
+          "minSource": {
+            "type": "number",
+            "description": "Возвращает минимальную границу исходного значения тренда.",
+            "format": "float"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Представляет настройки нормализации значений связанного с сигналом тренда."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.Signals.Models.PresentationType": {
+        "enum": [
+          "Sum",
+          "Avg",
+          "WorkTime",
+          "Performance"
+        ],
+        "type": "string",
+        "description": "Определяет тип представления значений."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.Signals.Models.RelatedSignalType": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Возвращает идентификатор.",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "description": "Возвращает наименование типа сигнала."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Представляет связанный тип сигнала."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.Signals.Models.RelatedTrend": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Возвращает идентификатор тренда."
+          },
+          "name": {
+            "type": "string",
+            "description": "Возвращает имя тренда."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Представляет тренд, связанный с сигналом."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.Signals.Models.Signal": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Возвращает уникальный идентификатор.",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "description": "Возвращает имя сигнала."
+          },
+          "presentation": {
+            "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.Signals.Models.PresentationType"
+          },
+          "signalTypeName": {
+            "type": "string",
+            "description": "Возвращает наименование типа сигнала.",
+            "nullable": true
+          },
+          "trendName": {
+            "type": "string",
+            "description": "Возвращает имя тренда."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Определяет данные метаданных сигнала."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.Signals.Models.SignalDetails": {
+        "type": "object",
+        "properties": {
+          "decimalDigitsCount": {
+            "type": "integer",
+            "description": "Возвращает количество десятичных разрядов.",
+            "format": "int32"
+          },
+          "id": {
+            "type": "string",
+            "description": "Возвращает уникальный идентификатор.",
+            "format": "uuid"
+          },
+          "isAccumulator": {
+            "type": "boolean",
+            "description": "Возвращает значение, определяющее, что сигнал представляет накопительный счетчик."
+          },
+          "name": {
+            "type": "string",
+            "description": "Возвращает имя сигнала."
+          },
+          "normalization": {
+            "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.Signals.Models.NormalizationInfo"
+          },
+          "presentation": {
+            "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.Signals.Models.PresentationType"
+          },
+          "signalType": {
+            "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.Signals.Models.RelatedSignalType"
+          },
+          "sumDivisor": {
+            "type": "number",
+            "description": "Возвращает делитель для суммы.",
+            "format": "float",
+            "nullable": true
+          },
+          "trend": {
+            "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.Signals.Models.RelatedTrend"
+          },
+          "workMinValue": {
+            "type": "number",
+            "description": "Возвращает минимальное значение в работе.",
+            "format": "float",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Определяет данные метаданных сигнала в детальном виде."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.Telegrams.Models.ParameterDescriptor": {
+        "type": "object",
+        "properties": {
+          "displayName": {
+            "type": "string",
+            "description": "Отображаемое имя параметра"
+          },
+          "parameterId": {
+            "type": "string",
+            "description": "Уникальный идентификатор параметра."
+          },
+          "typeMetadata": {
+            "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.Types.Models.TypeMetadata"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Представляет описание параметра телеграммы."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.Telegrams.Models.TelegramDescriptor": {
+        "type": "object",
+        "properties": {
+          "telegramId": {
+            "type": "string",
+            "description": "Уникальный идентификатор телеграммы."
+          },
+          "displayName": {
+            "type": "string",
+            "description": "Отображаемое имя телеграммы."
+          },
+          "descriptorState": {
+            "type": "string",
+            "description": "Уникальный идентификатор телеграммы."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Представляет описание телеграммы."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.TrendGrouping.Models.FilterItem": {
+        "type": "object",
+        "properties": {
+          "groupName": {
+            "type": "string",
+            "description": "Возвращает или устанавливает значение фильтра по имени группы.",
+            "nullable": true
+          },
+          "trendName": {
+            "type": "string",
+            "description": "Возвращает или устанавливает значение фильтра по имени тренда.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Определяет критерий фильтрации."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.TrendGrouping.Models.Trend": {
+        "type": "object",
+        "properties": {
+          "trendId": {
+            "type": "string",
+            "description": "Идентификатор тренда."
+          },
+          "name": {
+            "type": "string",
+            "description": "Наименование тренда."
+          },
+          "typeMetadata": {
+            "type": "string",
+            "description": "Тип тренда."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Определяет тренд."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.TrendGrouping.Models.TrendGroup": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Идентификатор.",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "description": "Наименование."
+          },
+          "parentId": {
+            "type": "string",
+            "description": "Идентификатор родительской группы.",
+            "format": "uuid",
+            "nullable": true
+          },
+          "isFilteredSatisfied": {
+            "type": "boolean",
+            "description": "Флаг, определяющий, соответствует ли группа критериям фильтрации.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Определяет группу трендов."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.TrendGrouping.Models.TrendsByGroupRequestCriteria": {
+        "type": "object",
+        "properties": {
+          "filters": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.TrendGrouping.Models.FilterItem"
+            },
+            "description": "Возвращает или устанавливает критерии фильтрации.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Определяет критерии запроса для выборки трендов в группе."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.Trends.Models.AggregationMetadata": {
+        "type": "object",
+        "properties": {
+          "aggrFunc": {
+            "type": "string",
+            "description": "Функция функцию агрегации."
+          },
+          "period": {
+            "type": "string",
+            "description": "Период аккумуляции."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Представляет аккумуляцию данных."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.Trends.Models.DescriptorMetadata": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Идентификатор",
+            "format": "uuid"
+          },
+          "displayName": {
+            "type": "string",
+            "description": "Отображаемое имя."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Представляет DTO метаданных в дескрипторе."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.Trends.Models.TrendDescriptor": {
+        "type": "object",
+        "properties": {
+          "trendId": {
+            "type": "string",
+            "description": "Идентификатор описания тренда."
+          },
+          "displayName": {
+            "type": "string",
+            "description": "Отображаемой имя дескриптора."
+          },
+          "typeMetadata": {
+            "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.Trends.Models.DescriptorMetadata"
+          },
+          "aggregationMetadata": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.Trends.Models.AggregationMetadata"
+            },
+            "description": "Список агрегаций данных."
+          },
+          "state": {
+            "type": "string",
+            "description": "Состояние описания тренда."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Представляет описание тренда."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.Trends.Models.TrendDescriptorDetails": {
+        "type": "object",
+        "properties": {
+          "trendId": {
+            "type": "string",
+            "description": "Идентификатор тренда."
+          },
+          "displayName": {
+            "type": "string",
+            "description": "Отображаемое имя."
+          },
+          "typeMetadata": {
+            "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.Types.Models.TypeMedataDetails"
+          },
+          "aggregationMetadata": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.Trends.Models.AggregationMetadata"
+            },
+            "description": "Метаданные агрегаций."
+          },
+          "state": {
+            "type": "string",
+            "description": "Состояние (Ready, NotReady)."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Описывает DTO описателя тренда в детальном виде."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.Trends.Models.TypeKind": {
+        "enum": [
+          "Numeric",
+          "ValueSet"
+        ],
+        "type": "string",
+        "description": "Представляет возможные виды типов трендов."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.Types.Models.NumericTypeMetadata": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор.",
+            "format": "uuid"
+          },
+          "displayName": {
+            "type": "string",
+            "description": "Строковое представление."
+          },
+          "valueType": {
+            "type": "string",
+            "description": "Числовой тип. (Int, Float)."
+          },
+          "measure": {
+            "type": "string",
+            "description": "Размерность значения.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Представляет описание численного типа."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.Types.Models.TypeMedataDetails": {
+        "type": "object",
+        "properties": {
+          "numeric": {
+            "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.Types.Models.NumericTypeMetadata"
+          },
+          "valueSet": {
+            "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.Types.Models.ValueSetTypeMetadata"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Представляет детали типа метаданных."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.Types.Models.TypeMetadata": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор.",
+            "format": "uuid"
+          },
+          "displayName": {
+            "type": "string",
+            "description": "Строковое представление."
+          },
+          "onNumeric": {
+            "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.Types.Models.TypeMetadata+OnNumericTypeMetadata"
+          },
+          "onValueSet": {
+            "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.Types.Models.TypeMetadata+OnValueSetTypeMetadata"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Представляет описание типа."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.Types.Models.TypeMetadata+OnNumericTypeMetadata": {
+        "type": "object",
+        "properties": {
+          "valueType": {
+            "type": "string",
+            "description": "Тип значения."
+          },
+          "measure": {
+            "type": "string",
+            "description": "Размерность.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Представляет расширение числового типа метаданных."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.Types.Models.TypeMetadata+OnValueSetTypeMetadata": {
+        "type": "object",
+        "properties": {
+          "values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.Types.Models.ValueSetElement"
+            },
+            "description": "Коллекция элементов ValueSet."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Представляет расширение словаря типа метаданных."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.Types.Models.ValueSetElement": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer",
+            "description": "Значение тренда приходящее из контроллера.",
+            "format": "int32"
+          },
+          "description": {
+            "type": "string",
+            "description": "Описание (расшифровка) данного значение."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Представляет элемент ValueSet."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.Types.Models.ValueSetTypeMetadata": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор.",
+            "format": "uuid"
+          },
+          "displayName": {
+            "type": "string",
+            "description": "Строковое представление."
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.Types.Models.ValueSetElement"
+            },
+            "description": "Набор значений."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Представляет описание типа, имеющего набор значений."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Query.Models.ScadaElementViewDto": {
+        "type": "object",
+        "properties": {
+          "configurationData": {
+            "type": "string",
+            "description": "Возвращает данные конфигураци."
+          },
+          "id": {
+            "type": "string",
+            "description": "Возвращает уникальный идентификатор."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Определяет элемент Scada для конфигурирования."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Query.Models.SignalReport": {
+        "type": "object",
+        "properties": {
+          "displayName": {
+            "type": "string",
+            "description": "Возвращает или устанавливает наименование сигнала.",
+            "nullable": true
+          },
+          "max": {
+            "type": "number",
+            "description": "Возвращает или устанавливает максимальное значение.",
+            "format": "float",
+            "nullable": true
+          },
+          "min": {
+            "type": "number",
+            "description": "Возвращает или устанавливает минимальное значение.",
+            "format": "float",
+            "nullable": true
+          },
+          "signalId": {
+            "type": "string",
+            "description": "Возвращает или устанавливает идентификатор сигнала.",
+            "format": "uuid"
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.SignalValue"
+            },
+            "description": "Возвращает или устанавливает значения сигнала."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Определяет сигнал."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Query.Models.SignalValue": {
+        "type": "object",
+        "properties": {
+          "x": {
+            "type": "number",
+            "description": "Возвращает время в мс (ось X на графике).",
+            "format": "double"
+          },
+          "y": {
+            "type": "number",
+            "description": "Возвращает значение (ось Y на графике).",
+            "format": "float",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Определяет значение сигнала в определенный момент времени."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Scada.Controllers.Models.DowntimesForPeriod": {
+        "type": "object",
+        "properties": {
+          "startDateTime": {
+            "type": "string",
+            "description": "Возвращает время начала периода.",
+            "format": "date-time"
+          },
+          "endDateTime": {
+            "type": "string",
+            "description": "Возвращает время окончания периода.",
+            "format": "date-time"
+          },
+          "duration": {
+            "type": "string",
+            "description": "Возвращает длительность периода."
+          },
+          "isDowntime": {
+            "type": "boolean",
+            "description": "Возвращает `true`, если период является простоем."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Определяет данные о периоде работы или простоя."
+      },
+      "Northis.Upstream.Configurator.Contracts.Dto.TelegramDescriptor.DescriptorState": {
+        "enum": [
+          "Ready",
+          "NotReady"
+        ],
+        "type": "string"
+      },
+      "Northis.Upstream.Configurator.Contracts.Dto.TrendDescriptor.TypeKindDto": {
+        "enum": [
+          "Numeric",
+          "ValueSet"
+        ],
+        "type": "string"
+      },
+      "Northis.Upstream.Configurator.Contracts.TrendGrouping.FilterItemDto": {
+        "type": "object",
+        "properties": {
+          "groupName": {
+            "type": "string",
+            "nullable": true
+          },
+          "trendName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Northis.Upstream.Configurator.Contracts.TrendGrouping.GroupFilterRequest": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Northis.Upstream.Configurator.Contracts.TrendGrouping.FilterItemDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Northis.Upstream.MesIntegration.Contracts.MesData.MesStoreDataDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "value": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Northis.Upstream.Query.Contracts.PowerBalance.PowerBalanceDto": {
+        "type": "object",
+        "properties": {
+          "generationPower": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "importPower": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "period": {
+            "$ref": "#/components/schemas/Northis.Upstream.Query.Contracts.PowerBalance.PowerBalancePeriod"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Northis.Upstream.Query.Contracts.PowerBalance.PowerBalancePeriod": {
+        "enum": [
+          "HalfHour",
+          "OneHour",
+          "OneShift",
+          "OneDay",
+          "OneWeek",
+          "OneMonth",
+          "OneYear"
+        ],
+        "type": "string"
+      },
+      "Northis.Upstream.Query.Contracts.SamplingStepDto": {
+        "enum": [
+          "OneSecond",
+          "OneMinute",
+          "FiveMinutes",
+          "OneHour",
+          "OneShift",
+          "OneDay"
+        ],
+        "type": "string"
+      },
+      "Northis.Upstream.Query.Contracts.Trends.ArchiveTrendDto": {
+        "type": "object",
+        "properties": {
+          "trendId": {
+            "type": "string"
+          },
+          "value": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Northis.Upstream.Query.Contracts.Trends.TrendProductionDto": {
+        "type": "object",
+        "properties": {
+          "trendId": {
+            "type": "string"
+          },
+          "value": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "ArchiveTrends",
+      "description": "Определяет API получения информации об исторических данных."
+    },
+    {
+      "name": "Carriages",
+      "description": "Определяет API получения информации о вагонах."
+    },
+    {
+      "name": "Configuration",
+      "description": "Определяет API для управления конфигурацией элементов Scada."
+    },
+    {
+      "name": "Downtimes",
+      "description": "Определяет API получения информации о простоях."
+    },
+    {
+      "name": "PowerBalance",
+      "description": "Определяет API получения информации о балансе импорт/генерация."
+    },
+    {
+      "name": "Reports",
+      "description": "Определяет API на запросы отчетов по сигналам."
+    },
+    {
+      "name": "SignalGroups",
+      "description": "Определяет API конфигурирования группы сигналов."
+    },
+    {
+      "name": "Signals",
+      "description": "Определяет API для получения информации о сигналах."
+    },
+    {
+      "name": "Telegrams",
+      "description": "Определяет API конфигурирования телеграмм."
+    },
+    {
+      "name": "TrendGroups",
+      "description": "Определяет API получения информации о группах трендов."
+    },
+    {
+      "name": "Trends",
+      "description": "Определяет API получения информации о трендах."
+    },
+    {
+      "name": "MesIntegration",
+      "description": "Определяет API на запросы данных MES."
+    }
+  ]
+}

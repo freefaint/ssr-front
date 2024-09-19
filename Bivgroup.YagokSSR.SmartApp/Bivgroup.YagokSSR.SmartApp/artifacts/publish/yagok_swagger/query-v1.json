@@ -1,0 +1,1905 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Upstream_API",
+    "description": "API-gateway системы Upstream",
+    "contact": {
+      "name": "Northis",
+      "url": "http://northis.ru"
+    },
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/v1/query/reporttemplates/{id}": {
+      "put": {
+        "tags": [
+          "ReportTemplates"
+        ],
+        "summary": "Изменяет данные шаблона отчета.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Идентификатор шаблона отчета.",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Данные для изменения.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.ReportTemplateInputRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Шаблон успешно обновлен."
+          },
+          "409": {
+            "description": "Конфликт запроса.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Шаблон не существует.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Нет доступа.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ReportTemplates"
+        ],
+        "summary": "Удаляет шаблон отчета.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Идентификатор шаблона отчета.",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Шаблон успешно обновлен."
+          },
+          "404": {
+            "description": "Шаблон не существует.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Нет доступа.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "ReportTemplates"
+        ],
+        "summary": "Возвращает шаблон отчета по идентификатору.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Идентификатор шаблона отчета.",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Шаблон успешно получен.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.ReportTemplateDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Шаблон не найден.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/query/reporttemplates": {
+      "post": {
+        "tags": [
+          "ReportTemplates"
+        ],
+        "summary": "Создает новый шаблон отчета.",
+        "requestBody": {
+          "description": "Данные для создания.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.ReportTemplateInputRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Шаблон успешно создан."
+          },
+          "409": {
+            "description": "Конфликт запроса.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Нет доступа.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "ReportTemplates"
+        ],
+        "summary": "Возвращает шаблоны отчетов.",
+        "parameters": [
+          {
+            "name": "Name",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "IsDescending",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "PropertyName",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Список успешно получен.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.ReportTemplate"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/query/reports": {
+      "get": {
+        "tags": [
+          "Reports"
+        ],
+        "summary": "Возвращает отчет по сигналам.",
+        "parameters": [
+          {
+            "name": "BeginDate",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "EndDate",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "SamplingStep",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "$ref": "#/components/schemas/Northis.Upstream.Query.Contracts.SamplingStepDto"
+            }
+          },
+          {
+            "name": "SignalIds",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          },
+          {
+            "name": "TimeZone",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Отчет по сигналам успешно получен.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.SignalReport"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Отчет по сигналам не найден."
+          }
+        }
+      }
+    },
+    "/api/v1/query/signalgroups/{id}": {
+      "get": {
+        "tags": [
+          "SignalGroups"
+        ],
+        "summary": "Возвращает группу по идентификатору.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Идентификатор группы.",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Группа успешно получена.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.SignalGroup"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Группа не найдена.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/query/signalgroups/search": {
+      "post": {
+        "tags": [
+          "SignalGroups"
+        ],
+        "summary": "Возвращает группы с учетом фильтров.",
+        "requestBody": {
+          "description": "Набор фильтров.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.SignalGroupFilterItemData"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.SignalGroupFilterItemData"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.SignalGroupFilterItemData"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Группы успешно получены.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.FilterMatchSignalGroupData"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Группы не найдены.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/query/signalgroups/{groupId}/signals/search": {
+      "post": {
+        "tags": [
+          "SignalGroups"
+        ],
+        "summary": "Возвращает сигналы указанной группы.",
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "Идентификатор группы.",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "Идентификаторы сигналов, которые необходимо исключить из результата.",
+            "style": "form",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          },
+          {
+            "name": "FullPath",
+            "in": "query",
+            "description": "Возвращает значение фильтра по полному пути до сигнала в группе.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Name",
+            "in": "query",
+            "description": "Возвращает значение фильтра по имени.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Presentation",
+            "in": "query",
+            "description": "Возвращает значение фильтра по способу интерпретации.",
+            "style": "form",
+            "schema": {
+              "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.Signals.Models.PresentationType"
+            }
+          },
+          {
+            "name": "SignalTypeName",
+            "in": "query",
+            "description": "Возвращает значение фильтра по имени типа.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "TrendName",
+            "in": "query",
+            "description": "Возвращает значение фильтра по имени тренда.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "IsDescending",
+            "in": "query",
+            "description": "Возвращает `true`, если порядок сортировки по убыванию.",
+            "style": "form",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "PropertyName",
+            "in": "query",
+            "description": "Возвращает строковое наименование свойства, по которому производится сортировка.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Набор фильтров.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.GroupSignalsRequestCriteria"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.GroupSignalsRequestCriteria"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.GroupSignalsRequestCriteria"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Сигналы указанной группы успешно получены.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.GetPagedItemsResponse`1[Northis.Upstream.ApiGateway.Modules.Query.Models.Signal]"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/query/signalgroups/signals/search": {
+      "post": {
+        "tags": [
+          "SignalGroups"
+        ],
+        "summary": "Возвращает сигналы указанных групп.",
+        "parameters": [
+          {
+            "name": "groupIds",
+            "in": "query",
+            "description": "Идентификаторы групп.",
+            "style": "form",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          },
+          {
+            "name": "FullPath",
+            "in": "query",
+            "description": "Возвращает значение фильтра по полному пути до сигнала в группе.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Name",
+            "in": "query",
+            "description": "Возвращает значение фильтра по имени.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Presentation",
+            "in": "query",
+            "description": "Возвращает значение фильтра по способу интерпретации.",
+            "style": "form",
+            "schema": {
+              "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.Signals.Models.PresentationType"
+            }
+          },
+          {
+            "name": "SignalTypeName",
+            "in": "query",
+            "description": "Возвращает значение фильтра по имени типа.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "TrendName",
+            "in": "query",
+            "description": "Возвращает значение фильтра по имени тренда.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "Идентификаторы сигналов, которые необходимо исключить из результата.",
+            "style": "form",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          },
+          {
+            "name": "IsDescending",
+            "in": "query",
+            "description": "Возвращает `true`, если порядок сортировки по убыванию.",
+            "style": "form",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "PropertyName",
+            "in": "query",
+            "description": "Возвращает строковое наименование свойства, по которому производится сортировка.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Набор фильтров.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.GroupSignalsRequestCriteria"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.GroupSignalsRequestCriteria"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.GroupSignalsRequestCriteria"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.GetPagedItemsResponse`1[Northis.Upstream.ApiGateway.Modules.Query.Models.Signal]"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/query/signals/{id}": {
+      "get": {
+        "tags": [
+          "Signals"
+        ],
+        "summary": "Возвращает сигнал по уникальному идентификатору.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Идентификатор сигнала.",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Сигнал успешно получен.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.SignalDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Сигнал не найден.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/query/signals": {
+      "get": {
+        "tags": [
+          "Signals"
+        ],
+        "summary": "Возвращает указанную страницу сигналов.",
+        "parameters": [
+          {
+            "name": "IsDescending",
+            "in": "query",
+            "description": "Возвращает `true`, если порядок сортировки по убыванию.",
+            "style": "form",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "PropertyName",
+            "in": "query",
+            "description": "Возвращает строковое наименование свойства, по которому производится сортировка.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "FullPath",
+            "in": "query",
+            "description": "Возвращает значение фильтра по полному пути до сигнала в группе.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Name",
+            "in": "query",
+            "description": "Возвращает значение фильтра по имени.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Presentation",
+            "in": "query",
+            "description": "Возвращает значение фильтра по способу интерпретации.",
+            "style": "form",
+            "schema": {
+              "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.Signals.Models.PresentationType"
+            }
+          },
+          {
+            "name": "SignalTypeName",
+            "in": "query",
+            "description": "Возвращает значение фильтра по имени типа.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "TrendName",
+            "in": "query",
+            "description": "Возвращает значение фильтра по имени тренда.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "Идентификаторы сигналов, которые необходимо исключить из результата.",
+            "style": "form",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "description": "Номер страницы.",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Количество элементов на странице.",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Список успешно получен.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Configurator.GetPagedItemsResponse`1[Northis.Upstream.ApiGateway.Modules.Query.Models.Signal]"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/query/signals/search/fullpaths": {
+      "get": {
+        "tags": [
+          "Signals"
+        ],
+        "summary": "Возвращает результат поиска среди полных путей сигналов.",
+        "parameters": [
+          {
+            "name": "FullPath",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "GroupsIds",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          },
+          {
+            "name": "ExcludedSignalsIds",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          },
+          {
+            "name": "Take",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "IsDesc",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Список успешно получен.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/query/signals/search/names": {
+      "get": {
+        "tags": [
+          "Signals"
+        ],
+        "summary": "Возвращает результат поиска среди имен сигналов.",
+        "parameters": [
+          {
+            "name": "Name",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "GroupsIds",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          },
+          {
+            "name": "ExcludedSignalsIds",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          },
+          {
+            "name": "Take",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "IsDesc",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Список успешно получен.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/query/signals/search/signaltypes": {
+      "get": {
+        "tags": [
+          "Signals"
+        ],
+        "summary": "Возвращает результат поиска среди типов сигналов.",
+        "parameters": [
+          {
+            "name": "SignalType",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "GroupsIds",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          },
+          {
+            "name": "ExcludedSignalsIds",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          },
+          {
+            "name": "Take",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "IsDesc",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Список успешно получен.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/query/telegrams/last": {
+      "get": {
+        "tags": [
+          "Telegrams"
+        ],
+        "summary": "Возвращает последние на текущий момент запрашиваемые телеграммы.",
+        "parameters": [
+          {
+            "name": "telegramsIds",
+            "in": "query",
+            "description": "Идентификаторы телеграмм.",
+            "style": "form",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.Telegram"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/query/telegrams": {
+      "get": {
+        "tags": [
+          "Telegrams"
+        ],
+        "summary": "Возвращает запрашиваемые телеграммы.",
+        "parameters": [
+          {
+            "name": "BeginDate",
+            "in": "query",
+            "description": "Возвращает или устанавливает дату начала диапазона поиска.",
+            "style": "form",
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2022-09-01T02:25:20Z"
+            },
+            "example": "2022-09-01T02:25:20Z"
+          },
+          {
+            "name": "EndDate",
+            "in": "query",
+            "description": "Возвращает или устанавливает дату окончания диапазона поиска.",
+            "style": "form",
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2022-09-19T00:00:00Z"
+            },
+            "example": "2022-09-19T00:00:00Z"
+          },
+          {
+            "name": "PageNumber",
+            "in": "query",
+            "description": "Возвращает или устанавливает номер запрашиваемой страницы.",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 10
+            },
+            "example": 10
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "description": "Возвращает или устанавливает размер запрашиваемой страницы.",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 20
+            },
+            "example": 20
+          },
+          {
+            "name": "TelegramsIds",
+            "in": "query",
+            "description": "Возвращает или устанавливает идентификаторы телеграмм.",
+            "style": "form",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "example": [
+                "telegram1",
+                "telegram2"
+              ]
+            },
+            "example": [
+              "telegram1",
+              "telegram2"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Generic.Models.PagedItems`1[Northis.Upstream.ApiGateway.Modules.Query.Models.Telegram]"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/query/trends/trends/aggregation": {
+      "post": {
+        "tags": [
+          "Trends"
+        ],
+        "summary": "Возвращает тренды с агрегацией значений.",
+        "requestBody": {
+          "description": "Критерии запроса.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.TrendAggregationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Generic.Models.PagedItems`1[Northis.Upstream.ApiGateway.Modules.Query.Models.TrendAggregation]"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Microsoft.AspNetCore.Mvc.ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": { }
+      },
+      "Northis.Upstream.ApiGateway.Generic.Models.PageCriteria": {
+        "type": "object",
+        "properties": {
+          "number": {
+            "type": "integer",
+            "description": "Возвращает или устанавливает номер страницы для выборки.",
+            "format": "int32",
+            "nullable": true
+          },
+          "size": {
+            "type": "integer",
+            "description": "Возвращает или устанавливает количество объектов, которые необходимо получить (размер страницы).",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Представляет настройки страничной выборки."
+      },
+      "Northis.Upstream.ApiGateway.Generic.Models.PagedItems`1[Northis.Upstream.ApiGateway.Modules.Query.Models.Telegram]": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.Telegram"
+            },
+            "description": "Возвращает набор результирующих элементов на странице."
+          },
+          "totalCount": {
+            "type": "integer",
+            "description": "Возвращает общее количество элементов выборки.",
+            "format": "int32",
+            "example": 1984
+          }
+        },
+        "additionalProperties": false,
+        "description": "Определяет элементы страницы, возвращаемой по критериям запроса."
+      },
+      "Northis.Upstream.ApiGateway.Generic.Models.PagedItems`1[Northis.Upstream.ApiGateway.Modules.Query.Models.TrendAggregation]": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.TrendAggregation"
+            },
+            "description": "Возвращает набор результирующих элементов на странице."
+          },
+          "totalCount": {
+            "type": "integer",
+            "description": "Возвращает общее количество элементов выборки.",
+            "format": "int32",
+            "example": 1984
+          }
+        },
+        "additionalProperties": false,
+        "description": "Определяет элементы страницы, возвращаемой по критериям запроса."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.GetPagedItemsResponse`1[Northis.Upstream.ApiGateway.Modules.Query.Models.Signal]": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.Signal"
+            },
+            "description": "Массив элементов."
+          },
+          "totalCount": {
+            "type": "integer",
+            "description": "Общее число элементов.",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Определяет данные получения элементов запрошеного типа."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Configurator.Signals.Models.PresentationType": {
+        "enum": [
+          "Sum",
+          "Avg",
+          "WorkTime",
+          "Performance"
+        ],
+        "type": "string",
+        "description": "Определяет тип представления значений."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Query.Models.AggregationType": {
+        "enum": [
+          "Min",
+          "Max",
+          "Avg",
+          "Count",
+          "Sum"
+        ],
+        "type": "string",
+        "description": "Определяет тип агрегации данных."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Query.Models.FilterMatchSignalGroupData": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Идентификатор.",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "description": "Имя группы."
+          },
+          "parentId": {
+            "type": "string",
+            "description": "Идентификатор родительской группы.",
+            "format": "uuid",
+            "nullable": true
+          },
+          "isFilteredSatisfied": {
+            "type": "boolean",
+            "description": "Признак, удовлетворяет ли группа критериям фильтрации."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Представляет данные фильтрации групп сигналов."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Query.Models.GroupSignalsRequestCriteria": {
+        "type": "object",
+        "properties": {
+          "filters": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.SignalGroupFilterItemData"
+            },
+            "description": "Возвращает критерии фильтрации.",
+            "nullable": true
+          },
+          "page": {
+            "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Generic.Models.PageCriteria"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Представляет критерии запроса группы сигналов."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Query.Models.PresentationType": {
+        "enum": [
+          "Sum",
+          "Avg",
+          "WorkTime",
+          "Performance"
+        ],
+        "type": "string",
+        "description": "Определяет тип представления значений."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Query.Models.ReportTemplate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Возвращает идентификатор.",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "description": "Возвращает наименование шаблона."
+          },
+          "templateType": {
+            "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.TemplateType"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Определяет данные шаблона отчета."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Query.Models.ReportTemplateDetails": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Возвращает идентификатор.",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "description": "Возвращает наименование шаблона."
+          },
+          "signals": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.ReportTemplateSignalDetails"
+            },
+            "description": "Возвращает список сигналов.",
+            "nullable": true
+          },
+          "templateType": {
+            "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.TemplateType"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Определяет детальные данные шаблона отчета."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Query.Models.ReportTemplateInputRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Возвращает наименование шаблона."
+          },
+          "signals": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.ReportTemplateSignal"
+            },
+            "description": "Возвращает список сигналов.",
+            "nullable": true
+          },
+          "templateType": {
+            "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.TemplateType"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Определяет входные данные для шаблона отчета."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Query.Models.ReportTemplateSignal": {
+        "type": "object",
+        "properties": {
+          "color": {
+            "type": "string",
+            "description": "Возвращает цвет."
+          },
+          "id": {
+            "type": "string",
+            "description": "Возвращает идентификатор сигнала.",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Определяет данные сигнала для шаблона отчета."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Query.Models.ReportTemplateSignalDetails": {
+        "type": "object",
+        "properties": {
+          "color": {
+            "type": "string",
+            "description": "Возвращает цвет."
+          },
+          "id": {
+            "type": "string",
+            "description": "Возвращает идентификатор сигнала.",
+            "format": "uuid"
+          },
+          "isSignalExist": {
+            "type": "boolean",
+            "description": "Возвращает значение, указывающее, что сигнал существует."
+          },
+          "name": {
+            "type": "string",
+            "description": "Возвращает имя сигнала."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Определяет детальные данные сигнала для шаблона отчета."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Query.Models.Signal": {
+        "type": "object",
+        "properties": {
+          "fullPath": {
+            "type": "string",
+            "description": "Возвращает полный путь до сигнала в группе.",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Возвращает уникальный идентификатор.",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "description": "Возвращает имя сигнала."
+          },
+          "presentation": {
+            "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.PresentationType"
+          },
+          "signalTypeName": {
+            "type": "string",
+            "description": "Возвращает наименование типа сигнала.",
+            "nullable": true
+          },
+          "trendName": {
+            "type": "string",
+            "description": "Возвращает имя тренда."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Определяет данные метаданных сигнала."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Query.Models.SignalDetails": {
+        "type": "object",
+        "properties": {
+          "decimalDigitsCount": {
+            "type": "integer",
+            "description": "Возвращает количество десятичных разрядов.",
+            "format": "int32"
+          },
+          "id": {
+            "type": "string",
+            "description": "Возвращает уникальный идентификатор.",
+            "format": "uuid"
+          },
+          "isAccumulator": {
+            "type": "boolean",
+            "description": "Возвращает значение, определяющее, что сигнал представляет накопительный счетчик."
+          },
+          "name": {
+            "type": "string",
+            "description": "Возвращает имя сигнала."
+          },
+          "presentation": {
+            "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.PresentationType"
+          },
+          "sumDivisor": {
+            "type": "number",
+            "description": "Возвращает делитель для суммы.",
+            "format": "float",
+            "nullable": true
+          },
+          "workMinValue": {
+            "type": "number",
+            "description": "Возвращает минимальное значение в работе.",
+            "format": "float",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Определяет данные метаданных сигнала в детальном виде."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Query.Models.SignalGroup": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Идентификатор группы.",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "description": "Имя группы."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Представляет группу сигналов."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Query.Models.SignalGroupFilterItemData": {
+        "type": "object",
+        "properties": {
+          "groupName": {
+            "type": "string",
+            "description": "Имя группы.",
+            "nullable": true
+          },
+          "signalName": {
+            "type": "string",
+            "description": "Имя сигнала.",
+            "nullable": true
+          },
+          "signalTypeName": {
+            "type": "string",
+            "description": "Тип сигнала.",
+            "nullable": true
+          },
+          "fullPath": {
+            "type": "string",
+            "description": "Полный путь.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Представляет данные фильтрации групп сигналов."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Query.Models.SignalReport": {
+        "type": "object",
+        "properties": {
+          "displayName": {
+            "type": "string",
+            "description": "Возвращает или устанавливает наименование сигнала.",
+            "nullable": true
+          },
+          "max": {
+            "type": "number",
+            "description": "Возвращает или устанавливает максимальное значение.",
+            "format": "float",
+            "nullable": true
+          },
+          "min": {
+            "type": "number",
+            "description": "Возвращает или устанавливает минимальное значение.",
+            "format": "float",
+            "nullable": true
+          },
+          "signalId": {
+            "type": "string",
+            "description": "Возвращает или устанавливает идентификатор сигнала.",
+            "format": "uuid"
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.SignalValue"
+            },
+            "description": "Возвращает или устанавливает значения сигнала."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Определяет сигнал."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Query.Models.SignalValue": {
+        "type": "object",
+        "properties": {
+          "x": {
+            "type": "number",
+            "description": "Возвращает время в мс (ось X на графике).",
+            "format": "double"
+          },
+          "y": {
+            "type": "number",
+            "description": "Возвращает значение (ось Y на графике).",
+            "format": "float",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Определяет значение сигнала в определенный момент времени."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Query.Models.Telegram": {
+        "type": "object",
+        "properties": {
+          "createdDate": {
+            "type": "string",
+            "description": "Возвращает или устанавливает дату формирования.",
+            "format": "date-time",
+            "example": "2023-04-27T13:02:41.907369Z"
+          },
+          "id": {
+            "type": "string",
+            "description": "Возвращает или устанавливает идентификатор.",
+            "example": "telegram2"
+          },
+          "value": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Возвращает или устанавливает значение.",
+            "example": {
+              "signal1": "t2_signal1-4",
+              "signal2": "t2_signal2-4"
+            }
+          }
+        },
+        "additionalProperties": false,
+        "description": "Определяет данные телеграммы."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Query.Models.TemplateType": {
+        "enum": [
+          "Common",
+          "Personal"
+        ],
+        "type": "string",
+        "description": "Определяет типы шаблонов."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Query.Models.TimeIntervalKind": {
+        "enum": [
+          "OneHour",
+          "OneMinute"
+        ],
+        "type": "string",
+        "description": "Определяет интервал агрегации."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Query.Models.TrendAggregation": {
+        "type": "object",
+        "properties": {
+          "segmentTime": {
+            "type": "string",
+            "description": "Возвращает или устанавливает дату сегментирования (конкретная секунда, минута, час, день, неделя, месяц, год и т.п. на шкале времени).",
+            "format": "date-time",
+            "example": "2023-04-25T00:00:00Z"
+          },
+          "trendsData": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number",
+              "format": "float"
+            },
+            "description": "Возвращает или устанавливает агрегированные данные на временном сегменте для трендов.",
+            "example": {
+              "voltage": 4.654926,
+              "direct": 16
+            }
+          }
+        },
+        "additionalProperties": false,
+        "description": "Представляет агрегацию значений трендов в сегменте времени."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Query.Models.TrendAggregationItem": {
+        "type": "object",
+        "properties": {
+          "aggregation": {
+            "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.AggregationType"
+          },
+          "trendId": {
+            "type": "string",
+            "description": "Возвращает или устанавливает идентификатор тренда.",
+            "example": "voltage"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Определяет данные для агрегации тренда."
+      },
+      "Northis.Upstream.ApiGateway.Modules.Query.Models.TrendAggregationRequest": {
+        "type": "object",
+        "properties": {
+          "beginDate": {
+            "type": "string",
+            "description": "Возвращает или устанавливает начальную дата диапазона.",
+            "format": "date-time",
+            "example": "2022-09-01T02:25:20Z"
+          },
+          "endDate": {
+            "type": "string",
+            "description": "Возвращает или устанавливает конечную дата диапазона.",
+            "format": "date-time",
+            "example": "2022-09-02T02:25:20Z"
+          },
+          "interval": {
+            "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.TimeIntervalKind"
+          },
+          "pageNumber": {
+            "type": "integer",
+            "description": "Возвращает или устанавливает номер страницы.",
+            "format": "int32",
+            "nullable": true,
+            "example": 1
+          },
+          "pageSize": {
+            "type": "integer",
+            "description": "Возвращает или устанавливает размер страницы.",
+            "format": "int32",
+            "nullable": true,
+            "example": 100
+          },
+          "timeZone": {
+            "type": "string",
+            "description": "Возвращает или устанавливает часовой пояс."
+          },
+          "trends": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Northis.Upstream.ApiGateway.Modules.Query.Models.TrendAggregationItem"
+            },
+            "description": "Возвращает или устанавливает данные для агрегации по трендам."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Определяет критерии для выборки трендов с агрегацией."
+      },
+      "Northis.Upstream.Query.Contracts.SamplingStepDto": {
+        "enum": [
+          "OneSecond",
+          "OneMinute",
+          "FiveMinutes",
+          "OneHour",
+          "OneShift",
+          "OneDay"
+        ],
+        "type": "string"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Reports",
+      "description": "Определяет API на запросы отчетов по сигналам."
+    },
+    {
+      "name": "ReportTemplates",
+      "description": "Определяет API для управления хранением шаблонов отчетов."
+    },
+    {
+      "name": "SignalGroups",
+      "description": "Определяет API на запросы группы сигналов."
+    },
+    {
+      "name": "Signals",
+      "description": "Определяет API для управления получением сигналов."
+    },
+    {
+      "name": "Telegrams",
+      "description": "Определяет API на запросы телеграмм."
+    },
+    {
+      "name": "Trends",
+      "description": "Определяет API на запросы трендов."
+    }
+  ]
+}

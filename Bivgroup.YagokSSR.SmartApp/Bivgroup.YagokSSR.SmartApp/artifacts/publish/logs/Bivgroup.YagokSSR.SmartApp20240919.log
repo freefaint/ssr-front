@@ -1,0 +1,7 @@
+2024-09-19 13:04:29.016 +03:00 [INF] Start
+2024-09-19 13:04:29.043 +03:00 [DBG] Hosting starting
+2024-09-19 13:04:29.118 +03:00 [DBG] Unable to locate an appropriate development https certificate.
+2024-09-19 13:04:29.120 +03:00 [DBG] No listening endpoints were configured. Binding to http://localhost:5000 by default.
+2024-09-19 13:04:29.122 +03:00 [DBG] Hosting started
+2024-09-19 13:04:29.124 +03:00 [DBG] Loaded hosting startup assembly Bivgroup.YagokSSR.SmartApp
+2024-09-19 13:04:30.995 +03:00 [DBG] Hosting shutdown
