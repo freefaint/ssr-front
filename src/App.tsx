@@ -152,6 +152,7 @@ const theme = createTheme({
 
           "&.Mui-selected": {
             backgroundColor: "rgba(0, 65, 160, 1)!important",
+            color: "#fff",
             borderRadius: "0.5rem",
           }
         },
