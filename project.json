@@ -1,0 +1,34 @@
+{
+  "name": "severstal-front",
+
+  "hosts": {
+    "freefaint.ru": {
+      "hostname": "freefaint.ru",
+      "username": "root"
+    }
+  },
+
+  "profiles": {
+    "front": {
+      "path": "./build",
+      "host": "freefaint.ru",
+      "dir": "/var/www/severstal-front",
+
+      "build": ["npm run build"],
+      "deploy": [],
+      "start": []
+    }
+  },
+
+  "scripts": {
+    "front": [
+      "remoting build front",
+      "remoting deploy front"
+    ],
+
+    "nginx": [
+      "remoting cp freefaint.ru ./nginx/severstal-front.conf /etc/nginx/conf.d/severstal-front.conf",
+      "remoting exec freefaint.ru systemctl restart nginx"
+    ]
+  }
+}
