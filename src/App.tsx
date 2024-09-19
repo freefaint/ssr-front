@@ -89,7 +89,8 @@ const theme = createTheme({
       ],
       styleOverrides: {
         root: {
-          textTransform: "none"
+          textTransform: "none",
+          color: "#fff"
         }
       }
     },
