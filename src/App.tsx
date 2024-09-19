@@ -161,14 +161,11 @@ const theme = createTheme({
     MuiPaper: {
       styleOverrides: {
         root: {
+          color: 'inherit',
           padding: "0.75rem",
           borderRadius: "1rem",
           boxShadow: "none",
           backgroundImage: "none",
-
-          "&.MuiPaper-outlined": {
-
-          }
         }
       },
 
