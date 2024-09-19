@@ -436,7 +436,7 @@ const Rating = ({ items, spacing = 0.5, crit, height = 85, min = 8 }: { items: {
         }
 
         return (
-          <Stack flexGrow={1} spacing={1}>
+          <Stack flexGrow={1} spacing={0.5}>
             <Typography style={{ opacity: !i.value ? 0.25 : 1 }} align='center'>{i.value}</Typography>
 
             <div style={style} />
