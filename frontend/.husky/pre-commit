@@ -1,6 +1,0 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
-cd frontend
-echo "hello from husky pre-commit hook "
-npm run rome-staged

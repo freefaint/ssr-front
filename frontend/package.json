@@ -1,58 +1,46 @@
 {
-	"name": "dpfront",
-	"version": "0.1.0",
-	"homepage": ".",
-	"private": true,
-	"scripts": {
-		"start": "env-cmd -f .env.dev env BROWSER=none craco start",
-		"build": "env-cmd -f .env.prod craco build",
-		"eject": "react-scripts eject",
-		"lint": "npx rome check .",
-		"lint:fix": "npx rome check . --apply",
-		"lint:fix:unsafe": "npx rome check . --apply-unsafe",
-		"format": "npx rome format .",
-		"format:fix": "npx rome format . --write",
-		"prepare": "cd .. && husky install frontend/.husky",
-		"rome-staged": "lint-staged",
-		"dep-cruiser": "npx depcruise src",
-		"dep-cruiser:preview": "npx depcruise src --include-only '^src' --output-type dot | dot -T svg > dependency-graph.svg"
-	},
-	"dependencies": {
-		"@expressms/smartapp-sdk": "^1.2.9",
-		"@tanstack/react-query": "^4.29.19",
-		"@tanstack/react-query-devtools": "^4.29.19",
-		"compose-function": "^3.0.3",
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0",
-		"react-router-dom": "^6.14.1",
-		"react-scripts": "5.0.1",
-		"recharts": "^2.7.3",
-		"skeleton-mammoth": "^2.1.0"
-	},
-	"devDependencies": {
-		"@craco/craco": "^7.1.0",
-		"@craco/types": "^7.1.0",
-		"@types/compose-function": "^0.0.30",
-		"@types/node": "^16.18.39",
-		"@types/react": "^18.2.18",
-		"@types/react-dom": "^18.2.7",
-		"dependency-cruiser": "^13.1.5",
-		"env-cmd": "^10.1.0",
-		"husky": "^8.0.3",
-		"lint-staged": "^13.2.3",
-		"rome": "12.1.3",
-		"tailwindcss": "^3.3.3",
-		"typescript": "^4.9.5"
-	},
-	"lint-staged": {
-		"*.{js,ts,tsx,jsx}": ["npm run format", "npm run lint"]
-	},
-	"browserslist": {
-		"production": [">0.2%", "not dead", "not op_mini all"],
-		"development": [
-			"last 1 chrome version",
-			"last 1 firefox version",
-			"last 1 safari version"
-		]
-	}
+  "name": "severstal-front",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@mui/material": "^6.1.0",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^13.0.0",
+    "@testing-library/user-event": "^13.2.1",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.7.13",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-scripts": "5.0.1",
+    "typescript": "^5.6.2",
+    "web-vitals": "^2.1.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }
