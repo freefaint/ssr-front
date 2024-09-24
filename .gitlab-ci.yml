@@ -1,0 +1,112 @@
+include:
+  project: "${CI_TEMPLATE_PROJECT}"
+  file:
+    - docker/common.yml  
+    - node/common.yml
+    - nuget/common.yml
+
+variables:
+  FRONTEND_PATH: "frontend"
+  BACKEND_PATH: "Bivgroup.YagokSSR.SmartApp/Bivgroup.YagokSSR.SmartApp"
+  HELM_PATH: "$BACKEND_PATH/.helm"
+
+.build_rules: &build_rules
+  rules:
+    - if: "$CI_COMMIT_BRANCH =~ '/^(master|release\/.*|hotfix\/.*|feature\/.*)$/' || $CI_PIPELINE_SOURCE == 'merge_request_event'"
+
+.rules_never: &rules_never
+  rules:
+    - when: never
+
+get:dependencies:
+  image:
+    name: $NODE_IMAGE
+    docker:
+      user: root
+  variables:
+    NPM_DEPS_CMD_OPTS: "--no-package-lock --verbose --force"
+    NPM_CMD: "cd ./$FRONTEND_PATH && npm install $NPM_CMD_OPTS"
+
+  cache:
+    key: "$CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG"
+    policy: pull-push
+    paths:
+      - ./$FRONTEND_PATH/node_modules
+  <<: *build_rules
+
+build:sln:
+  image: $NUGET_IMAGE
+  needs: []
+  <<: *build_rules
+
+npm:build:
+  image:
+    name: $NODE_IMAGE
+    docker:
+      user: root
+  variables:
+    NPM_CMD_OPTS: "--verbose"
+    NPM_CMD: "cd ./$FRONTEND_PATH && npm run build $NPM_CMD_OPTS"
+  artifacts:
+    paths:
+      - ./$FRONTEND_PATH/build/*
+  <<: *build_rules
+
+build_image:
+  extends: .build_image
+  variables:
+    DOCKERFILE: "$BACKEND_PATH/Dockerfile"
+    BASE_BUILD_ARGS: "$PASS_REGISTRY --insecure -d $IMAGE"
+    IMAGE_TAG: "$CI_COMMIT_SHORT_SHA"
+  needs:
+    - job: build:sln
+    - job: npm:build
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "release" || $CI_COMMIT_BRANCH == "feature/ci-cd"'
+      variables:
+        CI_REGISTRY: $DOCKER_LOCAL_SNAPSHOT
+    - if: '$CI_COMMIT_BRANCH == "master"'
+      variables:
+        CI_REGISTRY: $DOCKER_LOCAL_RELEASE
+
+container_scanning:
+  variables:
+    IMAGE_TAG: "$CI_COMMIT_SHORT_SHA"
+  rules:
+    - if: "$CI_COMMIT_BRANCH =~ '/^(develop|master)$/'"
+
+test:sln:
+  needs: 
+    - build:sln  
+  <<: *build_rules
+
+appscreener:
+  needs: []
+  rules:
+    - if: '$APPSCREENER_ENABLED == "false"'
+      when: never
+    - if: "$CI_COMMIT_BRANCH == 'master'"    
+
+deploy:test:
+  extends: .deploy_service
+  variables:
+    NAMESPACE: yagok-mobile
+    K8S_CLUSTER: KUBERNETES_YAGOK_TEST
+  environment: test
+  rules:
+    - if: "$CI_COMMIT_BRANCH =~ '/^(release|master|feature\/ci-cd)$/'"
+      variables: 
+        IMAGE_TAG: "$CI_COMMIT_SHORT_SHA"
+  when: manual
+
+deploy:prod:
+  extends: .deploy_service
+  variables:
+    NAMESPACE: yagok-mobile
+    K8S_CLUSTER: KUBERNETES_YAGOK_PROD
+  environment: prod
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+      variables: 
+        IMAGE_TAG: "$CI_COMMIT_SHORT_SHA"
+  when: manual

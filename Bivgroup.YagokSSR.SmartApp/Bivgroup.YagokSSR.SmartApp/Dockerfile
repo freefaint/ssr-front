@@ -1,15 +1,13 @@
-FROM docker.repo.severstal.severstalgroup.com/svs_aspnet:6.0-ubuntu
-
-ARG GIT_COMMIT_SHORT
-LABEL app.revision=$GIT_COMMIT_SHORT
-
-USER svsuser
+FROM docker.repo.severstal.severstalgroup.com/devops-public/corp-images/dotnet/aspnet:6.0.1-ubuntu
 
 ENV TZ=Europe/Moscow \
     ASPNETCORE_URLS=http://+:5000
 
 WORKDIR /app
-COPY ./artifacts/publish .
-COPY ./smartapp_files ./smartapp_files
+
+COPY Bivgroup.YagokSSR.SmartApp/Bivgroup.YagokSSR.SmartApp/bin/Release/net6.0/ .
+COPY ./frontend/build/ ./smartapp_files/static
+
 EXPOSE 5000
-ENTRYPOINT ["dotnet", "Bivgroup.YagokSSR.SmartApp.dll"]
+
+CMD ["dotnet", "Bivgroup.YagokSSR.SmartApp.dll"]

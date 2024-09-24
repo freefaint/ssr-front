@@ -1,0 +1,6 @@
+apiVersion: v2
+name: yagok-ssr-mobile
+description: Generic helm chart for yagok-ssr-mobile
+version: 1.0.0
+home: https://git.severstal.severstalgroup.com/devops-public/helm-charts/templates/generic
+icon: https://gitlab.servicios.gob.mx/uploads/-/system/group/avatar/17/devops.png?width=64
