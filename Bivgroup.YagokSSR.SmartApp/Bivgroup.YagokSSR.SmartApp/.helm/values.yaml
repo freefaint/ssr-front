@@ -1,0 +1,47 @@
+global:
+  image:
+    repository: docker.repo.severstal.severstalgroup.com/shtd/shtd-mobile/yagok-ssr-mobile
+    tag: ""
+
+secrets:
+  enabled: true
+  projectNamespace: "shtd/shtd-mobile"
+  backend: "eso-vault-backend"
+  files: {}
+  tls: 
+    common: true
+
+deployment:
+  replicas: 1
+  reloadOnChange:
+    enabled: true
+
+  resources:
+    limits:
+      cpu: 0.3
+      memory: 1024Mi
+    requests:
+      cpu: 0.1
+      memory: 128Mi
+
+  securityContext:
+    runAsUser: 10000
+    runAsGroup: 10000
+
+service:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 5000
+    targetPort: 5000
+    protocol: TCP
+
+ingress:
+  enabled: true
+  className: nginx-internal
+  annotations: {}
+  host: yagok-ssr-mobile-test.kube.severstal.severstalgroup.com
+  paths:
+    - path: /
+      port: 5000
+  tls: true
