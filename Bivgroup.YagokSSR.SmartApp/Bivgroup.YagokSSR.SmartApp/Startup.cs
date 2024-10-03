@@ -5,6 +5,7 @@ using Bivgroup.YagokSSR.SmartApp.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
+using Microsoft.Extensions.FileProviders;
 
 namespace Bivgroup.YagokSSR.SmartApp
 {
@@ -75,6 +76,17 @@ namespace Bivgroup.YagokSSR.SmartApp
                 app.UseDeveloperExceptionPage();
             }
             app.UseExpress();
+            var options = new DefaultFilesOptions();
+            options.DefaultFileNames.Clear();
+            options.DefaultFileNames.Add("index.html");
+            app.UseDefaultFiles(options);
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+           Path.Combine(env.ContentRootPath, "smartapp_files")),
+                RequestPath = ""
+            });
+        
         }
 
         public static IEnumerable<BotEntry> MapToBotConfiguration(IEnumerable<BotConfigEntry> botConfiguration)
