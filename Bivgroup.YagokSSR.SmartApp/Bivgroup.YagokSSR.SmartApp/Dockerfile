@@ -6,7 +6,7 @@ ENV TZ=Europe/Moscow \
 WORKDIR /app
 
 COPY Bivgroup.YagokSSR.SmartApp/Bivgroup.YagokSSR.SmartApp/bin/Release/net6.0/ .
-COPY ./frontend/build/ ./smartapp_files
+COPY ./frontend/build/ ./smartapp_files/static
 
 EXPOSE 5000
 

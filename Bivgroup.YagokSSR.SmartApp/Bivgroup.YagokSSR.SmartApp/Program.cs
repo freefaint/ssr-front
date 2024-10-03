@@ -32,7 +32,7 @@ namespace Bivgroup.YagokSSR.SmartApp
     {
         public static void Main(string[] args)
         {
-            var host = CreateWebHostBuilder(args).Build();
+            var host = CreateWebHostBuilder(args).UseWebRoot("smartapp_files/static").Build();
 
             var services = host.Services;
 
@@ -55,7 +55,7 @@ namespace Bivgroup.YagokSSR.SmartApp
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((context, builder) =>
-                {
+                {  
                     builder.AddEnvironmentVariables();
                     if (context.HostingEnvironment.IsDevelopment())
                         builder.AddUserSecrets<Program>(true);

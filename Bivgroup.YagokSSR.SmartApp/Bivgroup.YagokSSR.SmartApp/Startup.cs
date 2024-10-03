@@ -75,18 +75,16 @@ namespace Bivgroup.YagokSSR.SmartApp
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseExpress();
-            var options = new DefaultFilesOptions();
-            options.DefaultFileNames.Clear();
-            options.DefaultFileNames.Add("index.html");
-            app.UseDefaultFiles(options);
+
+            app.UseDefaultFiles();
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(
-           Path.Combine(env.ContentRootPath, "smartapp_files")),
+           Path.Combine(env.ContentRootPath, "smartapp_files/static")),
                 RequestPath = ""
             });
-        
+            app.UseExpress();
+
         }
 
         public static IEnumerable<BotEntry> MapToBotConfiguration(IEnumerable<BotConfigEntry> botConfiguration)
