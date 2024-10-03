@@ -45,7 +45,7 @@ export const Bunker = ({ value, title, kovsh, vagon, filled }: BunkerProps) => {
     <Stack style={blockStyle}>
       <Stack style={unavailable ? undefined : LINES_BG}>
         <Stack style={{ padding: padding, height: "2rem", ...(filled && !unavailable ? ORANGE_BG : {}) }}>
-          <Typography align="center">{title}</Typography>
+          <Typography align="center" variant="body2">{title}</Typography>
         </Stack>
 
         <Stack style={{ padding: padding, height: "2rem", justifyContent: "flex-end", ...(unavailable ? {} : filled ? ORANGE_BG : GREEN_BG) }}>

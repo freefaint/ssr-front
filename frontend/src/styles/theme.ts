@@ -11,7 +11,7 @@ export const theme = createTheme({
     },
 
     body2: {
-
+      fontSize: 12
     },
 
     h1: {
@@ -39,6 +39,8 @@ export const theme = createTheme({
           paper: "rgba(35, 34, 39, 1)"
         },
         text: {
+          primary: "rgba(255, 255, 255, 1)",
+          secondary: "rgba(255, 255, 255, 0.55)",
           disabled: "rgba(255, 255, 255, 0.10)"
         },
         primary: {

@@ -6,6 +6,9 @@ import { ReactComponent as FilterIconSvg } from "./filter.svg";
 import { ReactComponent as ChevronIconSvg } from "./chevron.svg";
 import { ReactComponent as KovshIconSvg } from "./kovsh.svg";
 import { ReactComponent as VagonIconSvg } from "./vagon.svg";
+import { ReactComponent as BlowIconSvg } from "./blow.svg";
+import { ReactComponent as HumanIconSvg } from "./human.svg";
+import { ReactComponent as ToolIconSvg } from "./tool.svg";
 
 export const MenuIcon = createSvgIcon(
   <MenuIconSvg />,
@@ -35,4 +38,19 @@ export const KovshIcon = createSvgIcon(
 export const VagonIcon = createSvgIcon(
   <VagonIconSvg />,
   'VagonIcon'
+);
+
+export const BlowIcon = createSvgIcon(
+  <BlowIconSvg />,
+  'BlowIcon'
+);
+
+export const ToolIcon = createSvgIcon(
+  <ToolIconSvg />,
+  'ToolIcon'
+);
+
+export const HumanIcon = createSvgIcon(
+  <HumanIconSvg />,
+  'HumanIcon'
 );
