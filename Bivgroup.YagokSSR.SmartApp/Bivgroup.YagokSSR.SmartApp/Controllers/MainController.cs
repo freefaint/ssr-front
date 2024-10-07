@@ -53,8 +53,8 @@ public class MainController
             _logger.LogDebug($"ProcessRequest input data method: {method}; url {url} inputMethod {message.Command.Data.SmartAppData.Method} ");
 
             #region проброс авторизационного токена
-            if (!string.IsNullOrWhiteSpace(message.Command.Data.SmartAppData.SmartAppParams.Token))
-                httpClient.CreateAuthHeaders(message.Command.Data.SmartAppData.SmartAppParams.Token);
+            if (!string.IsNullOrWhiteSpace(ApiHelper._instance.token))
+                httpClient.CreateAuthHeaders(ApiHelper._instance.token);
             #endregion
             if (BotXBridgeWhiteList.Hosts.Any(c => url.Contains(c.ToLower()))) { 
             

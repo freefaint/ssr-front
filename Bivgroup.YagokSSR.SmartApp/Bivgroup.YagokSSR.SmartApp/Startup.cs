@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 using Microsoft.Extensions.FileProviders;
+using Bivgroup.YagokSSR.SmartApp.Helpers;
 
 namespace Bivgroup.YagokSSR.SmartApp
 {
@@ -37,6 +38,12 @@ namespace Bivgroup.YagokSSR.SmartApp
 
             services.AddOptions();
 
+
+            services.Configure<YagokApiConfig>(options => configuration.Bind("YagokApiConfig", options));
+            services.AddSingleton<YagokApiConfig>(
+                ctx => ctx.GetService<IOptions<YagokApiConfig>>().Value);
+
+
             services.Configure<BotConfig>(options => configuration.Bind("BotConfig", options));
             services.AddSingleton<BotConfig>(
                 ctx => ctx.GetService<IOptions<BotConfig>>().Value);
@@ -45,6 +52,35 @@ namespace Bivgroup.YagokSSR.SmartApp
             services.Configure<StaticFileConfig>(options => configuration.Bind("StaticFileConfig", options));
             services.AddSingleton<StaticFileConfig>(
                 ctx => ctx.GetService<IOptions<StaticFileConfig>>().Value);
+
+            services.AddHttpClient<Query.QueryClient>("QueryClient", c =>
+            {
+                c.BaseAddress = new Uri("https://yagok-api-shtd.kube.severstal.severstalgroup.com");
+                var host = c.BaseAddress.ToString().TrimEnd('/').Replace("https://", "");
+                c.DefaultRequestHeaders.Add(HeaderNames.Host, host);
+            }).ConfigurePrimaryHttpMessageHandler(() =>
+            {
+                return new HttpClientHandler
+                {
+                    AllowAutoRedirect = true,
+                    UseCookies = false,
+                    ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; }
+                };
+            });
+            services.AddHttpClient<Scada.ScadaClient>("ScadaClient", c =>
+            {
+                c.BaseAddress = new Uri("https://yagok-api-shtd.kube.severstal.severstalgroup.com");
+                var host = c.BaseAddress.ToString().TrimEnd('/').Replace("https://", "");
+                c.DefaultRequestHeaders.Add(HeaderNames.Host, host);
+            }).ConfigurePrimaryHttpMessageHandler(() =>
+            {
+                return new HttpClientHandler
+                {
+                    AllowAutoRedirect = true,
+                    UseCookies = false,
+                    ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; }
+                };
+            });
 
             services.AddHttpClient<MainController>(c =>
             {
@@ -64,9 +100,10 @@ namespace Bivgroup.YagokSSR.SmartApp
 
             services.AddScoped<MainController>();
 
-            services.AddExpressBot(config: new(botEntries, inChatExceptions: true));
+            services.AddExpressBot(config: new(botEntries, inChatExceptions: true)).AddBaseCommand("test","Тестовая комманда");
 
             services.AddSingleton<ReplaceSettings>(provider => new ReplaceSettings(configuration.GetSection("Replaces").Get<ReplaceItem[]>()));
+            services.AddSingleton<ApiHelper>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -83,11 +120,17 @@ namespace Bivgroup.YagokSSR.SmartApp
            Path.Combine(env.ContentRootPath, "smartapp_files/static")),
                 RequestPath = ""
             });
+
             app.UseExpress();
+            app.ApplicationServices.GetService<ApiHelper>();
 
         }
 
-        public static IEnumerable<BotEntry> MapToBotConfiguration(IEnumerable<BotConfigEntry> botConfiguration)
+
+
+
+
+    public static IEnumerable<BotEntry> MapToBotConfiguration(IEnumerable<BotConfigEntry> botConfiguration)
         {
             List<BotEntry> botEntries = new(capacity: botConfiguration.Count());
 
