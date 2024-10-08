@@ -7,6 +7,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 using Microsoft.Extensions.FileProviders;
 using Bivgroup.YagokSSR.SmartApp.Helpers;
+using Bivgroup.YagokSSR.SmartApp.PGContext;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bivgroup.YagokSSR.SmartApp
 {
@@ -22,20 +24,7 @@ namespace Bivgroup.YagokSSR.SmartApp
         public void ConfigureServices(IServiceCollection services)
         {
             var botConfiguration = configuration.GetSection(key: "BotConfig:BotConfigEntry").Get<List<BotConfigEntry>>();
-
-            //if (!Uri.TryCreate(configuration["BotConfig:BOT_CTS"], UriKind.Absolute, out var cts))
-            //    throw new Exception("The cts url could not be found. Please set the BOT_CTS variable in your 'User Secret' or Environment variables");
-
-            //if (!Guid.TryParse(configuration["BotConfig:BOT_ID"], out var botId))
-            //    throw new Exception("The bot id could not be found. Please set the BOT_ID variable in your 'User Secret' or Environment variables");
-
-            //var secret = configuration["BotConfig:BOT_SECRET"];
-
-            //if (string.IsNullOrWhiteSpace(secret))
-            //    throw new Exception("The bot secret could not be found. Please set the BOT_SECRET variable in your 'User Secret' or Environment variables");
-
             var botEntries = MapToBotConfiguration(botConfiguration);
-
             services.AddOptions();
 
 
@@ -97,7 +86,11 @@ namespace Bivgroup.YagokSSR.SmartApp
                 };
             });
 
+            services.AddDbContext<PostgresContext>(options => {
+                options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"), zop => zop.EnableRetryOnFailure());
 
+
+            });
             services.AddScoped<MainController>();
 
             services.AddExpressBot(config: new(botEntries, inChatExceptions: true)).AddBaseCommand("test","Тестовая комманда");

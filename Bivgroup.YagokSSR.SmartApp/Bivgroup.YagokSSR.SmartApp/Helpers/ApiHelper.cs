@@ -9,16 +9,17 @@ namespace Bivgroup.YagokSSR.SmartApp.Helpers
     public class ApiHelper
     {
         public static ApiHelper _instance { get; set; }
-        private readonly Query.QueryClient _queryClient;
-        private readonly Scada.ScadaClient _scadaClient;
+        //private readonly Query.QueryClient _queryClient;
+        //private readonly Scada.ScadaClient _scadaClient;
         private readonly ILogger<ApiHelper> _logger;
         private readonly YagokApiConfig _yagokApiConfig;
-        public string token;
-        public ApiHelper(Query.QueryClient queryClient, Scada.ScadaClient scadaClient, IConfiguration configuration,
+        public string token { get; set; }
+        public ApiHelper(IConfiguration configuration,
        ILogger<ApiHelper> logger, IOptions<YagokApiConfig> yagokApiConfig)
         {
-            _queryClient = queryClient;
-            _scadaClient = scadaClient;
+            //Query.QueryClient queryClient, Scada.ScadaClient scadaClient, 
+            //_queryClient = queryClient;
+            //_scadaClient = scadaClient;
             _yagokApiConfig = yagokApiConfig.Value;
             _logger = logger;
             _instance = this;
@@ -31,17 +32,19 @@ namespace Bivgroup.YagokSSR.SmartApp.Helpers
             {
 
                 var request = new HttpRequestMessage(HttpMethod.Post, "https://keycloak-yagok.kube.severstal.severstalgroup.com/realms/shtd/protocol/openid-connect/token");
-                var collection = new List<KeyValuePair<string, string>>();
-                collection.Add(new("grant_type", "client_credentials"));
-                collection.Add(new("client_id", _yagokApiConfig.CLIENT_ID));
-                collection.Add(new("client_secret", _yagokApiConfig.CLIENT_SECRET));
+                var collection = new List<KeyValuePair<string, string>>
+                {
+                    new("grant_type", "client_credentials"),
+                    new("client_id", _yagokApiConfig.CLIENT_ID),
+                    new("client_secret", _yagokApiConfig.CLIENT_SECRET)
+                };
                 var content = new FormUrlEncodedContent(collection);
                 request.Content = content;
                 var response = await client.SendAsync(request);
                 response.EnsureSuccessStatusCode();
                 var result_string = await response.Content.ReadAsStringAsync();
                 var result = JsonSerializer.Deserialize<auth_response>(result_string);
-                token = result.access_token;
+                token = result?.access_token;
                     _logger.LogInformation("SHTD API Token obtained.");
             }
             }
