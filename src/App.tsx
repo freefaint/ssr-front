@@ -7,6 +7,7 @@ import { Error } from "./components/error";
 import { Loading } from "./components/loading";
 import { COMPONENTS } from "./components/constants";
 import { Href } from "./components/types";
+import { ready, Bridge } from "@expressms/smartapp-sdk";
 
 function App() {
   return (
@@ -25,8 +26,11 @@ export const Site = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    Bridge?.sendClientEvent({ method: "ready", params: {} });
+
     setTimeout(() => {
       setLoading(false);
+      ready();
     }, 2000);
   }, []);
 

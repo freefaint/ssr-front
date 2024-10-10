@@ -4,7 +4,7 @@ type FetchOptions = {
 	params?: Record<string, unknown>;
 } & RequestInit
 
-const BASE_URL = process.env.REACT_APP_API_URL;
+const BASE_URL = "https://monagp.kube.severstal.severstalgroup.com/api"; // "/api" // prod
 
 const isNil = (val: unknown) => val === undefined || val === null;
 
