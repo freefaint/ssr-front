@@ -6,6 +6,6 @@
         {
             httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
         }
-
+      
     }
 }

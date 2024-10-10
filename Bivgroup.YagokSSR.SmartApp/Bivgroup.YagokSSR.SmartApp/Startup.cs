@@ -6,6 +6,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 using Microsoft.Extensions.FileProviders;
+using Bivgroup.YagokSSR.SmartApp.Helpers;
+using Bivgroup.YagokSSR.SmartApp.PGContext;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bivgroup.YagokSSR.SmartApp
 {
@@ -21,21 +24,14 @@ namespace Bivgroup.YagokSSR.SmartApp
         public void ConfigureServices(IServiceCollection services)
         {
             var botConfiguration = configuration.GetSection(key: "BotConfig:BotConfigEntry").Get<List<BotConfigEntry>>();
-
-            //if (!Uri.TryCreate(configuration["BotConfig:BOT_CTS"], UriKind.Absolute, out var cts))
-            //    throw new Exception("The cts url could not be found. Please set the BOT_CTS variable in your 'User Secret' or Environment variables");
-
-            //if (!Guid.TryParse(configuration["BotConfig:BOT_ID"], out var botId))
-            //    throw new Exception("The bot id could not be found. Please set the BOT_ID variable in your 'User Secret' or Environment variables");
-
-            //var secret = configuration["BotConfig:BOT_SECRET"];
-
-            //if (string.IsNullOrWhiteSpace(secret))
-            //    throw new Exception("The bot secret could not be found. Please set the BOT_SECRET variable in your 'User Secret' or Environment variables");
-
             var botEntries = MapToBotConfiguration(botConfiguration);
-
             services.AddOptions();
+
+
+            services.Configure<YagokApiConfig>(options => configuration.Bind("YagokApiConfig", options));
+            services.AddSingleton<YagokApiConfig>(
+                ctx => ctx.GetService<IOptions<YagokApiConfig>>().Value);
+
 
             services.Configure<BotConfig>(options => configuration.Bind("BotConfig", options));
             services.AddSingleton<BotConfig>(
@@ -45,6 +41,35 @@ namespace Bivgroup.YagokSSR.SmartApp
             services.Configure<StaticFileConfig>(options => configuration.Bind("StaticFileConfig", options));
             services.AddSingleton<StaticFileConfig>(
                 ctx => ctx.GetService<IOptions<StaticFileConfig>>().Value);
+
+            services.AddHttpClient<Query.QueryClient>("QueryClient", c =>
+            {
+                c.BaseAddress = new Uri("https://yagok-api-shtd.kube.severstal.severstalgroup.com");
+                var host = c.BaseAddress.ToString().TrimEnd('/').Replace("https://", "");
+                c.DefaultRequestHeaders.Add(HeaderNames.Host, host);
+            }).ConfigurePrimaryHttpMessageHandler(() =>
+            {
+                return new HttpClientHandler
+                {
+                    AllowAutoRedirect = true,
+                    UseCookies = false,
+                    ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; }
+                };
+            });
+            services.AddHttpClient<Scada.ScadaClient>("ScadaClient", c =>
+            {
+                c.BaseAddress = new Uri("https://yagok-api-shtd.kube.severstal.severstalgroup.com");
+                var host = c.BaseAddress.ToString().TrimEnd('/').Replace("https://", "");
+                c.DefaultRequestHeaders.Add(HeaderNames.Host, host);
+            }).ConfigurePrimaryHttpMessageHandler(() =>
+            {
+                return new HttpClientHandler
+                {
+                    AllowAutoRedirect = true,
+                    UseCookies = false,
+                    ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; }
+                };
+            });
 
             services.AddHttpClient<MainController>(c =>
             {
@@ -61,12 +86,16 @@ namespace Bivgroup.YagokSSR.SmartApp
                 };
             });
 
+            services.AddDbContext<PostgresContext>(options => {
+                options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"), zop => zop.EnableRetryOnFailure());
 
+
+            });
             services.AddScoped<MainController>();
-
-            services.AddExpressBot(config: new(botEntries, inChatExceptions: true));
+            services.AddExpressBot(config: new(botEntries, inChatExceptions: true)).AddBaseCommand("test","Тестовая комманда");
 
             services.AddSingleton<ReplaceSettings>(provider => new ReplaceSettings(configuration.GetSection("Replaces").Get<ReplaceItem[]>()));
+            services.AddSingleton<ApiHelper>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -75,21 +104,24 @@ namespace Bivgroup.YagokSSR.SmartApp
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseExpress();
-            var options = new DefaultFilesOptions();
-            options.DefaultFileNames.Clear();
-            options.DefaultFileNames.Add("index.html");
-            app.UseDefaultFiles(options);
+            app.UseDefaultFiles();
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(
-           Path.Combine(env.ContentRootPath, "smartapp_files")),
+           Path.Combine(env.ContentRootPath, "smartapp_files/static")),
                 RequestPath = ""
             });
-        
+
+            app.UseExpress();
+            app.ApplicationServices.GetService<ApiHelper>();
+
         }
 
-        public static IEnumerable<BotEntry> MapToBotConfiguration(IEnumerable<BotConfigEntry> botConfiguration)
+
+
+
+
+    public static IEnumerable<BotEntry> MapToBotConfiguration(IEnumerable<BotConfigEntry> botConfiguration)
         {
             List<BotEntry> botEntries = new(capacity: botConfiguration.Count());
 

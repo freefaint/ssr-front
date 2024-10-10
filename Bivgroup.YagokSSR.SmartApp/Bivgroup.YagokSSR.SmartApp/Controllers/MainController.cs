@@ -9,6 +9,7 @@ using Bivgroup.YagokSSR.SmartApp.Helpers;
 using Bivgroup.YagokSSR.SmartApp.Models;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Http;
 
 namespace Bivgroup.YagokSSR.SmartApp.Controllers;
 
@@ -35,8 +36,8 @@ public class MainController
         _logger = logger;
     }
 
-    [SmartAppControllerMethod("\\S+ \\S+")]
-    public async Task ProcessRequest(UserMessage message, IBotMessageSender sender)
+    [SmartAppControllerMethod("\\S+")]
+    public async Task<String> ProcessRequest(UserMessage message, IBotMessageSender sender)
     {
         _logger.LogInformation("ProcessRequest");
         HttpResponseMessage result;
@@ -44,6 +45,7 @@ public class MainController
         sw.Start();
         try
         {
+            
             var httpClient = _httpClientFactory.CreateClient(this.GetType().Name);
 
 
@@ -51,35 +53,50 @@ public class MainController
 
             var url = Url.Combine(_apiBaseUrl, message.Command.Data.SmartAppData.Method.Split(' ')[1]);
             _logger.LogDebug($"ProcessRequest input data method: {method}; url {url} inputMethod {message.Command.Data.SmartAppData.Method} ");
-
+        
             #region проброс авторизационного токена
-            if (!string.IsNullOrWhiteSpace(message.Command.Data.SmartAppData.SmartAppParams.Token))
-                httpClient.CreateAuthHeaders(message.Command.Data.SmartAppData.SmartAppParams.Token);
+            if (!string.IsNullOrWhiteSpace(ApiHelper._instance.token))
+                httpClient.CreateAuthHeaders(ApiHelper._instance.token);
             #endregion
             if (BotXBridgeWhiteList.Hosts.Any(c => url.Contains(c.ToLower()))) { 
             
             }
-
-            switch (method)
+            var tries = 3;
+            string dataString = "";
+            while (tries > 0)
             {
-                case "GET":
-                    result = await httpClient.GetAsync(url);
-                    break;
-                case "POST":
-                    result = await httpClient.PostAsync(url,
-                        new StringContent(message.Command.Data.SmartAppData.SmartAppParams.Body, Encoding.UTF8, "application/json"));
-                    break;
-                case "PUT":
-                    result = await httpClient.PutAsync(url,
-                        new StringContent(message.Command.Data.SmartAppData.SmartAppParams.Body, Encoding.UTF8, "application/json"));
-                    break;
-                case "DELETE":
-                    result = await httpClient.DeleteAsync(url);
-                    break;
-                default: throw new ArgumentException();
+                switch (method)
+                {
+                    case "GET":
+                        result = await httpClient.GetAsync(url);
+                        break;
+                    case "POST":
+                        result = await httpClient.PostAsync(url,
+                            new StringContent(message.Command.Data.SmartAppData.SmartAppParams.Body, Encoding.UTF8, "application/json"));
+                        break;
+                    case "PUT":
+                        result = await httpClient.PutAsync(url,
+                            new StringContent(message.Command.Data.SmartAppData.SmartAppParams.Body, Encoding.UTF8, "application/json"));
+                        break;
+                    case "DELETE":
+                        result = await httpClient.DeleteAsync(url);
+                        break;
+                    default: throw new ArgumentException();
+                }
+
+                if (result.StatusCode == System.Net.HttpStatusCode.Unauthorized) {
+
+                    ApiHelper._instance.UpdateAuthToken();
+
+                    tries--;
+                    continue;
+                }
+
+                dataString = await result.Content.ReadAsStringAsync();
+                break;
             }
 
-            var dataString = await result.Content.ReadAsStringAsync();
+         
             _logger.LogInformation($"ProcessRequest origin {dataString}");
 
             object data = null;
@@ -96,8 +113,9 @@ public class MainController
                 data = JsonConvert.DeserializeObject(dataString);
             }
 
-
-            await sender.SendSmartAppResponseAsync(message, data);
+          
+                await sender.SendSmartAppResponseAsync(message, data);
+            if (message.Command.Data.SmartAppData.SmartAppParams.Token == "testing_token") return dataString;
         }
         catch (Exception ex)
         {
@@ -111,6 +129,6 @@ public class MainController
             sw.Stop();
             Console.WriteLine($"Time elasped: {sw.ElapsedMilliseconds}ms");
         }
-
+        return "";
     }
 }

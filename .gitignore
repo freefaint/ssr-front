@@ -244,3 +244,4 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 *.DS_Store
+/Bivgroup.YagokSSR.SmartApp/Bivgroup.YagokSSR.SmartApp/appsettings.Development.json
