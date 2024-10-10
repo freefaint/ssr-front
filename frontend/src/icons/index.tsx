@@ -9,6 +9,13 @@ import { ReactComponent as VagonIconSvg } from "./vagon.svg";
 import { ReactComponent as BlowIconSvg } from "./blow.svg";
 import { ReactComponent as HumanIconSvg } from "./human.svg";
 import { ReactComponent as ToolIconSvg } from "./tool.svg";
+import { ReactComponent as CloseIconSvg } from "./close.svg";
+
+import BG from "./BG.png";
+
+export const BGSrc = BG;
+export { ReactComponent as LogoSvg } from "./logo.svg";
+export { ReactComponent as IconSvg } from "./icon.svg";
 
 export const MenuIcon = createSvgIcon(
   <MenuIconSvg />,
@@ -53,4 +60,9 @@ export const ToolIcon = createSvgIcon(
 export const HumanIcon = createSvgIcon(
   <HumanIconSvg />,
   'HumanIcon'
+);
+
+export const CloseIcon = createSvgIcon(
+  <CloseIconSvg />,
+  'CloseIcon'
 );
