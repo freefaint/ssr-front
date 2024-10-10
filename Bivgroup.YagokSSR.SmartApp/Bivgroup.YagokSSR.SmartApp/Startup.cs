@@ -92,7 +92,6 @@ namespace Bivgroup.YagokSSR.SmartApp
 
             });
             services.AddScoped<MainController>();
-
             services.AddExpressBot(config: new(botEntries, inChatExceptions: true)).AddBaseCommand("test","Тестовая комманда");
 
             services.AddSingleton<ReplaceSettings>(provider => new ReplaceSettings(configuration.GetSection("Replaces").Get<ReplaceItem[]>()));
@@ -105,7 +104,6 @@ namespace Bivgroup.YagokSSR.SmartApp
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseDefaultFiles();
             app.UseStaticFiles(new StaticFileOptions
             {

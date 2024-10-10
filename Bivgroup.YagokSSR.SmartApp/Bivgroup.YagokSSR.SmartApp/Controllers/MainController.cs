@@ -35,7 +35,7 @@ public class MainController
         _logger = logger;
     }
 
-    [SmartAppControllerMethod("\\S+ \\S+")]
+    [SmartAppControllerMethod("\\S+")]
     public async Task ProcessRequest(UserMessage message, IBotMessageSender sender)
     {
         _logger.LogInformation("ProcessRequest");
