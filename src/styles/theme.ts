@@ -1,4 +1,4 @@
-import { createTheme, Theme } from "@mui/material";
+import { createTheme, css, Theme } from "@mui/material";
 
 export const theme = createTheme({
   shadows: new Array(25).fill("none") as Theme['shadows'],
@@ -28,6 +28,11 @@ export const theme = createTheme({
     h3: {
       fontSize: "18px",
       lineHeight: "21.6px"
+    },
+
+    h6: {
+      fontSize: "68px",
+      lineHeight: "80px"
     }
   },
 
@@ -75,6 +80,62 @@ export const theme = createTheme({
   },
 
   components: {
+    MuiLinearProgress: {
+      styleOverrides: {
+        root: {
+          background: "rgba(255, 255, 255, 0.05)",
+          border: "solid 2px rgba(255, 255, 255, 0.05)",
+          borderRadius: "2px",
+          height: "4px"
+        },
+        bar: {
+          background: "rgba(73, 179, 255, 1)",
+          height: "4px",
+          borderRadius: "2px",
+        }
+      }
+    },
+    MuiListItemButton: {
+      styleOverrides: {
+        root: {
+          padding: "1rem",
+          borderRadius: "0.5rem",
+          
+          "&.Mui-selected": {
+            background: "rgba(255, 255, 255, 0.1)",
+          }
+        }
+      }
+    },
+    MuiDrawer: {
+      defaultProps: {
+        transitionDuration: 300,
+        slotProps: {
+          backdrop: {
+            style: {
+              backdropFilter: 'blur(72px)',
+            },
+          },
+        }
+      },
+      styleOverrides: {
+        paper: css`
+          box-sizing: border-box;
+          padding: 40px 16px 16px;
+          gap: 10px;
+
+          width: 300px;
+          
+          /* left: 0px;
+          top: 0px; */
+
+          /* BG/Surface */
+          background: #232227;
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          border-radius: 0px 20px 20px 0px;
+        `,
+      }
+    },
     MuiButton: {
       variants: [
         {
@@ -84,6 +145,19 @@ export const theme = createTheme({
           },
           style: {
             backgroundColor: "rgba(255, 255, 255, 0.05)"
+          }
+        },
+        {
+          props: {
+            variant: "outlined",
+            size: "large"
+          },
+          style: {
+            borderRadius: "0.75rem",
+            width: "100%",
+            height: "56px",
+            border: "none",
+            backgroundColor: "rgba(0, 65, 160, 1)"
           }
         }
       ],

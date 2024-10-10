@@ -1,50 +1,59 @@
 import { ThemeProvider } from "@emotion/react";
-import { Stack, IconButton, Typography } from "@mui/material";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { MenuIcon, DriveIcon } from "./icons";
+import { BrowserRouter, Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { theme } from "./styles/theme";
-import MainPage from "./pages/main";
-import RudnikPage from "./pages/rudnik";
-import VespPage from "./pages/vesp";
-import FabricPage from "./pages/fabric";
-
-const ALPHA_GRAD = "linear-gradient(to bottom, var(--dark), var(--dark) 80%, transparent 100%)";
+import { useEffect, useMemo, useState } from "react";
+import { Header } from "./components/header";
+import { Error } from "./components/error";
+import { Loading } from "./components/loading";
+import { COMPONENTS } from "./components/constants";
+import { Href } from "./components/types";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter basename='/'>
-        <header style={{ position: "sticky", top: 0, background: ALPHA_GRAD, zIndex: 1 }}>
-          <Stack direction="row" justifyContent="space-between" alignItems="center">
-            <IconButton>
-              <MenuIcon viewBox="0 0 38 38" />
-            </IconButton>
-
-            <Typography variant="h2" textTransform="uppercase">
-              <Routes>
-                <Route path='/' element={'Главная'} />
-                <Route path='/rudnik' element={'Подземный рудник'} />
-                <Route path='/vesp' element={'ВЭСП'} />
-                <Route path='/fabric' element={'Фабрика'} />
-              </Routes>
-            </Typography>
-
-            <IconButton>
-              <DriveIcon viewBox="0 0 38 38" />
-            </IconButton>
-          </Stack>
-        </header>
-
-        <main>
-          <Routes>
-            <Route path='/' Component={MainPage} />
-            <Route path='/rudnik' Component={RudnikPage} />
-            <Route path='/vesp' Component={VespPage} />
-            <Route path='/fabric' Component={FabricPage} />
-          </Routes>
-        </main>
+        <Site />
       </BrowserRouter>
     </ThemeProvider>
+  );
+}
+
+export const Site = () => {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  }, []);
+
+  const error = useMemo(() => !COMPONENTS[pathname as Href], [pathname]);
+
+  return (
+    <>
+      <Header error={error} loading={loading} />
+
+      <main style={{ transition: "opacity 300ms ease-in-out", opacity: loading || error ? 0 : 1 }}>
+        <Routes>
+          {Object.keys(COMPONENTS).map(i => (
+            <Route key={i} path={i} Component={COMPONENTS[i as Href]} />
+          ))}
+        </Routes>
+      </main>
+
+      <Error
+        open={error}
+        code={404}
+        title="Страница не найдена"
+        text="Ресурс недоступен по указанному адресу"
+        onClose={() => navigate(Href.Main)}
+      />
+
+      <Loading open={loading} />
+    </>
   );
 }
 
