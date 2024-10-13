@@ -17,6 +17,7 @@ namespace BotX.Api.JsonConverters
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
+            serializer.NullValueHandling = NullValueHandling.Ignore;
             JObject jsonObject = JObject.Load(reader);
             if (jsonObject.GetValue("type")?.ToString() == "mention")
             {
