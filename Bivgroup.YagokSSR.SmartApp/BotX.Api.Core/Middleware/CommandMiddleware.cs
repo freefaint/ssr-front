@@ -29,7 +29,7 @@ namespace BotX.Api.Middleware
                 context.Request.Body.Position = 0;
                 StreamReader reader = new StreamReader(context.Request.Body);
                 var body = await reader.ReadToEndAsync();
-                var message = JsonConvert.DeserializeObject<UserMessage>(body);
+                var message = JsonConvert.DeserializeObject<UserMessage>(body,new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
                 if (message == null)
                     throw new FormatException("body is not UserMessage");
 

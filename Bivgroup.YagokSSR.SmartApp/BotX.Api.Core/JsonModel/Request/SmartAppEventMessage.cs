@@ -16,7 +16,7 @@ public class SmartAppEventMessage
     public Guid SmartAppId { get; set; }
 
     [JsonProperty(PropertyName = "group_chat_id")]
-    public Guid GroupChatId { get; set; }
+    public Guid? GroupChatId { get; set; }
 
     [JsonProperty(PropertyName = "data")]
     public Object Data { get; set; }
@@ -43,7 +43,7 @@ public class SmartAppInternalNotificationPayload
     //public Guid SmartAppId { get; set; }
 
     [JsonProperty(PropertyName = "group_chat_id")]
-    public Guid GroupChatId { get; set; }
+    public Guid? GroupChatId { get; set; }
 
     [JsonProperty(PropertyName = "data")]
     public SmartAppInternalNotificationData Data { get; set; }
