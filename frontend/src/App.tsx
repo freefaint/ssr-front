@@ -46,6 +46,8 @@ export const Site = () => {
 
   const error = useMemo(() => !COMPONENTS[pathname as Href], [pathname]);
 
+  console.log('pathname', pathname);
+
   return (
     <>
       <Header error={error} loading={loading} />

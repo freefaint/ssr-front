@@ -20,6 +20,7 @@ export const Panel = ({ open, bg, children }: PropsWithChildren<{ bg: string, op
       PaperProps={{
         style: {
           backgroundImage: `url(${BGSrc})`,
+          backgroundSize: 'cover',
           backgroundColor: "transparent",
           border: "none",
           width: "100%",
