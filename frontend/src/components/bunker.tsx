@@ -53,7 +53,7 @@ export const Bunker = ({ value, title, kovsh, vagon, filled }: BunkerProps) => {
   const configuration = configurations.find((x) => x.elementId === ElementIds.MINE_BUNKER_1);
   const weight = useTrendSubscription(configuration instanceof MineBunkerConfiguration ? configuration.weightTrend?.trendId : undefined);
 
-  console.log('config', configuration);
+  console.log('config', configurations, configuration);
 
   const [weightData, setWeightData] = useState(null);
 
@@ -71,7 +71,7 @@ export const Bunker = ({ value, title, kovsh, vagon, filled }: BunkerProps) => {
     return () => {
       clearInterval(timer);
     }
-  });
+  }, []);
   
   console.log('weight data', weightData);
 
