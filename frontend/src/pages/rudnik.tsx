@@ -24,7 +24,7 @@ const RudnikPage = () => {
       <Stack direction="row" spacing={2}>
         <GraphBlock value={model1.weight.toDP(2).toNumber()} max={max1} />
 
-        <GraphBlock value={model1.weight.toDP(2).toNumber()} max={max2} />
+        <GraphBlock value={model2.weight.toDP(2).toNumber()} max={max2} />
       </Stack>
       
       <Section
