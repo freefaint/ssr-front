@@ -17,16 +17,14 @@ export const useBunker = (id: typeof ElementIds[keyof typeof ElementIds]) => {
   console.log('config', configuration);
 
   const [currentWeightData, setCurrentWeightData] = useState<Decimal>();
-  const [weightData, setWeightData] = useState<Decimal>();
-  const [rand, setRand] = useState<Decimal>(new Decimal(Math.round(Math.random() * 5000)));
+  // const [rand, setRand] = useState<Decimal>(new Decimal(Math.round(Math.random() * 5000)));
 
   useEffect(() => {
     const update = () => {
-      setRand(new Decimal(Math.round(Math.random() * 5000)));
+      // setRand(new Decimal(Math.round(Math.random() * 5000)));
 
       if (configuration instanceof MineBunkerConfiguration) {
         requestViaBridge(`carriages/currentweight?trendIds=${configuration.weightTrend?.trendId}`).then(setCurrentWeightData);
-        requestViaBridge(`carriages/weight?trendIds=${configuration.weightTrend?.trendId}`).then(setWeightData);
       }
     }
 
@@ -39,17 +37,19 @@ export const useBunker = (id: typeof ElementIds[keyof typeof ElementIds]) => {
     }
   }, [configuration]);
   
-  console.log('weight data', weightData, currentWeightData);
+  console.log('weight data', currentWeightData);
 
   const state = getMineBunkerLevelIndicatorState(currentWeightData, configuration);
 
-  const mineBunkerModel = useMemo(() => {
+  const model = useMemo(() => {
       return new MineBunkerModel(getPositiveValueOrZero(currentWeightData), 'T');
   }, [currentWeightData]);
 
-  console.log('sate', state, mineBunkerModel);
+  console.log('sate', state, model);
 
   return {
-    rand
+    state,
+    model,
+    max: configuration instanceof MineBunkerConfiguration ? configuration?.maxLevel : 0,
   }
 }

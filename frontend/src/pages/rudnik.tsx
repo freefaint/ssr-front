@@ -16,15 +16,15 @@ const BUNKERS: BunkerProps[] = new Array(20).fill(true).map(i => ({
 }))
 
 const RudnikPage = () => {
-  const { rand: rand1 } = useBunker(ElementIds.MINE_BUNKER_1);
-  const { rand: rand2 } = useBunker(ElementIds.MINE_BUNKER_2);
+  const { state: state1, model: model1, max: max1 } = useBunker(ElementIds.MINE_BUNKER_1);
+  const { state: state2, model: model2, max: max2 } = useBunker(ElementIds.MINE_BUNKER_2);
 
   return (
     <Stack spacing={2}>
       <Stack direction="row" spacing={2}>
-        <GraphBlock value={rand1.toNumber()} max={5000} />
+        <GraphBlock value={model1.weight.toDP(2).toNumber()} max={max1} />
 
-        <GraphBlock value={rand2.toNumber()} max={5000} />
+        <GraphBlock value={model1.weight.toDP(2).toNumber()} max={max2} />
       </Stack>
       
       <Section
