@@ -17,6 +17,7 @@ export const useBunker = (id: typeof ElementIds[keyof typeof ElementIds]) => {
   console.log('config', configuration);
 
   const [currentWeightData, setCurrentWeightData] = useState<Decimal>();
+  const [weightData, setWeightData] = useState<Decimal>();
   const [rand, setRand] = useState<Decimal>(new Decimal(Math.round(Math.random() * 5000)));
 
   useEffect(() => {
@@ -25,6 +26,7 @@ export const useBunker = (id: typeof ElementIds[keyof typeof ElementIds]) => {
 
       if (configuration instanceof MineBunkerConfiguration) {
         requestViaBridge(`carriages/currentweight?trendIds=${configuration.weightTrend?.trendId}`).then(setCurrentWeightData);
+        requestViaBridge(`carriages/weight?trendIds=${configuration.weightTrend?.trendId}`).then(setWeightData);
       }
     }
 
@@ -37,7 +39,7 @@ export const useBunker = (id: typeof ElementIds[keyof typeof ElementIds]) => {
     }
   }, []);
   
-  console.log('weight data', currentWeightData);
+  console.log('weight data', weightData, currentWeightData);
 
   const state = getMineBunkerLevelIndicatorState(currentWeightData, configuration);
 
