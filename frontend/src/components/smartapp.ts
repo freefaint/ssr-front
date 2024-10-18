@@ -4,7 +4,7 @@ type FetchOptions = {
 	params?: Record<string, unknown>;
 } & RequestInit
 
-const BASE_URL = ""; // "/api" // prod
+const BASE_URL = "api/v1/scada/"; // "/api" // prod
 
 const isNil = (val: unknown) => val === undefined || val === null;
 
@@ -23,10 +23,11 @@ const buildSearchParams = (
 
 export const requestViaBridge = async (requestUrl: string) => {
 	const response = await bridge?.sendBotEvent({
-    method: `${BASE_URL}${requestUrl}`,
+    method: `${'GET'} ${BASE_URL}${requestUrl}`,
     params: {},
   }).then(resp => {
-
+    console.log('resp', resp);
+    return resp;
   }).catch(e => {
     console.log(e);
     return Promise.reject(e);
