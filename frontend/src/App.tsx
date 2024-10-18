@@ -44,9 +44,9 @@ export const Site = () => {
     }, 2000);
   }, []);
 
-  const error = useMemo(() => !COMPONENTS[pathname as Href], [pathname]);
+  const path = useMemo(() => pathname.indexOf("/api/v1") === 0 ? "/" : pathname, [pathname]);
 
-  console.log('pathname', pathname);
+  const error = useMemo(() => !COMPONENTS[path as Href], [path]);
 
   return (
     <>

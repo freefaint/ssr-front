@@ -49,7 +49,6 @@ export const configurationsApi = api.injectEndpoints({
                 method: 'GET',
             }),
             transformResponse(result: readonly ConfigurationDto[]) {
-                console.log('gotConfig', result);
                 return result.map((src) => mapConfigurationDtoToSpecificModel(src)).filter(hasValue);
             },
             providesTags: ['configurations'],
