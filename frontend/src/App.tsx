@@ -1,5 +1,5 @@
 import { ThemeProvider } from "@emotion/react";
-import { BrowserRouter, Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate, useLocation, Navigate } from "react-router-dom";
 import { theme } from "./styles/theme";
 import { useEffect, useMemo, useState } from "react";
 import { Header } from "./components/header";
@@ -57,6 +57,11 @@ export const Site = () => {
           {Object.keys(COMPONENTS).map(i => (
             <Route key={i} path={i} Component={COMPONENTS[i as Href]} />
           ))}
+            
+          <Route
+            path="*"
+            element={<Navigate to="/" replace />}
+          />
         </Routes>
       </main>
 
