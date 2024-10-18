@@ -11,7 +11,7 @@ import { useContext, useEffect, useMemo, useState } from "react";
 
 export const useBunker = (id: typeof ElementIds[keyof typeof ElementIds]) => {
   const {configurations} = useContext(ConfigurationsContext);
-  const configuration = configurations.find((x) => x.elementId === id);
+  const configuration = useMemo(() => configurations.find((x) => x.elementId === id), [configurations, id]);;
   // const weight = useTrendSubscription(configuration instanceof MineBunkerConfiguration ? configuration.weightTrend?.trendId : undefined);
 
   console.log('config', configuration);
@@ -37,7 +37,7 @@ export const useBunker = (id: typeof ElementIds[keyof typeof ElementIds]) => {
     return () => {
       clearInterval(timer);
     }
-  }, []);
+  }, [configuration]);
   
   console.log('weight data', weightData, currentWeightData);
 
