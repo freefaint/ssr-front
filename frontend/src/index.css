@@ -24,3 +24,7 @@ header {
 main {
   padding: 1rem;
 }
+
+circle, line {
+  transition: all 500ms ease-in-out; /* set to 2s to clearly show if it works */
+}

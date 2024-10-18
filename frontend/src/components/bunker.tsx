@@ -43,9 +43,6 @@ export const Bunker = ({ value, title, kovsh, vagon, filled }: BunkerProps) => {
 
   const blockStyle = useMemo(() => ({ ...BLOCK_STYLE, ...(unavailable ? RED_BORDER_BG : {}) }), [unavailable]);
 
-  useBunker(ElementIds.MINE_BUNKER_1);
-  useBunker(ElementIds.MINE_BUNKER_2);
-
   return (
     <Stack style={blockStyle}>
       <Stack style={unavailable ? undefined : LINES_BG}>

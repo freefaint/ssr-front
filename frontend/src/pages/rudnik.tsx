@@ -4,6 +4,7 @@ import { GraphBlock } from "../components/graph";
 import Section from "../components/section";
 import { RATING_NODE, INFO_NODE } from "../mock";
 import { ElementIds } from "../business/monitoring/configurations/elements/element-ids";
+import { useBunker } from "hooks/useRudnik";
 
 
 const BUNKERS: BunkerProps[] = new Array(20).fill(true).map(i => ({
@@ -15,12 +16,15 @@ const BUNKERS: BunkerProps[] = new Array(20).fill(true).map(i => ({
 }))
 
 const RudnikPage = () => {
+  const { rand: rand1 } = useBunker(ElementIds.MINE_BUNKER_1);
+  const { rand: rand2 } = useBunker(ElementIds.MINE_BUNKER_2);
+
   return (
     <Stack spacing={2}>
       <Stack direction="row" spacing={2}>
-        <GraphBlock />
+        <GraphBlock value={rand1.toNumber()} max={5000} />
 
-        <GraphBlock />
+        <GraphBlock value={rand2.toNumber()} max={5000} />
       </Stack>
       
       <Section

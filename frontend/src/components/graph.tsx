@@ -5,10 +5,10 @@ export interface GraphProps {
   
 }
 
-const Graph = () => {
+const Graph = ({ value }: { value?: number }) => {
   return (
     <svg width={132} height={132} viewBox='0 0 132 132'>
-      <Circle value={75} coords={{ x: 66, y: 66 }} />
+      <Circle value={value ?? 75} coords={{ x: 66, y: 66 }} />
     </svg>
   )
 }
@@ -51,7 +51,7 @@ const Circle = ({ value, radius = 62, coords: { x, y }, color = "rgba(4, 144, 86
   )
 }
 
-export const GraphBlock = ({ variant }: Pick<PaperProps, 'variant'>) => {
+export const GraphBlock = ({ variant, value, max }: Pick<PaperProps, 'variant'> & { value?: number, max?: number }) => {
   return (
     <Paper variant={variant}>
       <Stack spacing={1}>
@@ -63,12 +63,12 @@ export const GraphBlock = ({ variant }: Pick<PaperProps, 'variant'>) => {
 
         <Stack position="relative">
           <Stack style={variant === "outlined" ? { margin: "-0.4325rem" } : undefined}>
-            <Graph />
+            <Graph value={((value ?? 0) / (max ?? 1)) * 100} />
           </Stack>
 
           <Stack width="0" height="0" overflow="visible" justifyContent="center" alignItems="center" position="absolute" left="50%" top="50%">
             <Stack direction="row" spacing={1}>
-              <Typography variant='h3' color="primary">{`${Number(12345.45).toLocaleString()} `}</Typography>
+              <Typography variant='h3' color="primary">{`${Number(value ?? 0).toLocaleString()} `}</Typography>
               <Typography variant='h3' color="primary" style={{ opacity: 0.5 }}>т</Typography>
             </Stack>
 
