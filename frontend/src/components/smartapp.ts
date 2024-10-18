@@ -4,7 +4,7 @@ type FetchOptions = {
 	params?: Record<string, unknown>;
 } & RequestInit
 
-const BASE_URL = "api/v1/scada"; // "/api" // prod
+const BASE_URL = "api/v1/scada/"; // "/api" // prod
 
 const isNil = (val: unknown) => val === undefined || val === null;
 
