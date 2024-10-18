@@ -4,7 +4,7 @@ type FetchOptions = {
 	params?: Record<string, unknown>;
 } & RequestInit
 
-const BASE_URL = "https://monagp.kube.severstal.severstalgroup.com/api"; // "/api" // prod
+const BASE_URL = "api/v1/scada"; // "/api" // prod
 
 const isNil = (val: unknown) => val === undefined || val === null;
 
@@ -25,6 +25,9 @@ export const requestViaBridge = async (requestUrl: string) => {
 	const response = await bridge?.sendBotEvent({
     method: `${'GET'} ${BASE_URL}${requestUrl}`,
     params: {},
+  }).catch(e => {
+    console.log(e);
+    return Promise.reject(e);
   });
 
   // @ts-ignore
