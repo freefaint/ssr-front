@@ -26,10 +26,10 @@ export const requestViaBridge = async (requestUrl: string) => {
     method: `${'GET'} ${BASE_URL}${requestUrl}`,
     params: {},
   }).then(resp => {
-    console.log('resp', resp);
+    // console.log('resp', resp);
     return resp;
   }).catch(e => {
-    console.log(e);
+    // console.log(e);
     return Promise.reject(e);
   });
 
@@ -38,7 +38,7 @@ export const requestViaBridge = async (requestUrl: string) => {
     throw new Error(`Response ${response}`);
   }
 
-  console.log('response', (response.payload as any)?.data);
+  // console.log('response', (response.payload as any)?.data);
   // @ts-ignore
   return response.payload?.data as T;
 }

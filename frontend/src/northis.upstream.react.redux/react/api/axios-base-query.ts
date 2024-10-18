@@ -28,9 +28,7 @@ export const axiosBaseQuery =
         try {
             // Для запросов с множественными параметрами формат без настройки paramsSerializer
             // имел вид ?a[]=b&a[]=c, нам необходимо без индексов.
-            console.log('req', url);
             const res = await requestViaBridge(url);
-            console.log(url, res);
             // const result = await axios.request({
             //     url: url,
             //     method,
@@ -43,7 +41,7 @@ export const axiosBaseQuery =
             const result = createDataResult(res, {
                 
             });
-            console.log(result, 'result');
+            
             return result;
         } catch (axiosError) {
             let err = axiosError as AxiosError;

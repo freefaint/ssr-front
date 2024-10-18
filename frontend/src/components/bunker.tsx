@@ -53,14 +53,16 @@ export const Bunker = ({ value, title, kovsh, vagon, filled }: BunkerProps) => {
   const configuration = configurations.find((x) => x.elementId === ElementIds.MINE_BUNKER_1);
   const weight = useTrendSubscription(configuration instanceof MineBunkerConfiguration ? configuration.weightTrend?.trendId : undefined);
 
-  console.log('config', configurations, configuration);
+  console.log('config', configuration);
 
   const [weightData, setWeightData] = useState(null);
+  const [currentWeightData, setCurrentWeightData] = useState(null);
 
   useEffect(() => {
     const update = () => {
       if (configuration instanceof MineBunkerConfiguration) {
-        requestViaBridge(`carriages/currentweight?trendIds=${configuration.weightTrend?.trendId}`).then(setWeightData);
+        requestViaBridge(`carriages/currentweight?trendIds=${configuration.weightTrend?.trendId}`).then(setCurrentWeightData);
+        requestViaBridge(`carriages/weight?trendIds=${configuration.weightTrend?.trendId}`).then(setWeightData);
       }
     }
 
@@ -73,7 +75,7 @@ export const Bunker = ({ value, title, kovsh, vagon, filled }: BunkerProps) => {
     }
   }, []);
   
-  console.log('weight data', weightData);
+  console.log('weight data', weight, weightData, currentWeightData);
 
   const state = getMineBunkerLevelIndicatorState(weight, configuration);
 
@@ -81,7 +83,7 @@ export const Bunker = ({ value, title, kovsh, vagon, filled }: BunkerProps) => {
       return new MineBunkerModel(getPositiveValueOrZero(weight), 'T');
   }, [weight]);
 
-  console.log(state, mineBunkerModel);
+  console.log('sate', state, mineBunkerModel);
 
   return (
     <Stack style={blockStyle}>
