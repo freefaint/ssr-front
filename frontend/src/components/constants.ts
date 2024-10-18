@@ -8,6 +8,11 @@ import { Page, Href } from "./types";
 export const PAGES: Page[] = [
   {
     name: "Главная",
+    title: "index",
+    href: Href.Index
+  },
+  {
+    name: "Главная",
     title: "main",
     href: Href.Main
   },

@@ -6,6 +6,8 @@
       "dom.iterable",
       "esnext"
     ],
+    "baseUrl": "./src",
+    "rootDir": "./src",
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -18,7 +20,15 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "paths": {
+      "northis.react.components": ["northis.react.components"],
+      "northis.react.signalr": ["northis.react.signalr"],
+      "northis.typescript.utils": ["northis.typescript.utils"],
+      "northis.upstream.react.components": ["northis.upstream.react.components"],
+      "northis.upstream.react.redux": ["northis.upstream.react.redux"],
+      "northis.upstream.signalr": ["northis.upstream.signalr"],
+    }
   },
   "include": [
     "src"

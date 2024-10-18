@@ -3,6 +3,7 @@ import { BunkerProps, Bunker } from "../components/bunker";
 import { GraphBlock } from "../components/graph";
 import Section from "../components/section";
 import { RATING_NODE, INFO_NODE } from "../mock";
+import { ElementIds } from "../business/monitoring/configurations/elements/element-ids";
 
 
 const BUNKERS: BunkerProps[] = new Array(20).fill(true).map(i => ({
@@ -46,6 +47,12 @@ const RudnikPage = () => {
         <Grid2 container spacing={1}>
           {BUNKERS.map((i, j) => (
             <Grid2 key={j} size={3}>
+              {/* <MineBunkerData
+                id={ElementIds.MINE_BUNKER_1}
+                configName={'Бункер 1'}
+                label={'Бункер 1'}
+                measure={'т'}
+              /> */}
               <Bunker {...i} />
             </Grid2>  
           ))}

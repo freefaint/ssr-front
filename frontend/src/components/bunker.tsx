@@ -1,7 +1,14 @@
 import { Stack, Typography } from "@mui/material";
-import { CSSProperties, useMemo } from "react";
+import { CSSProperties, useContext, useMemo } from "react";
 import { BLACK, GREEN, ORANGE, RED } from "../styles/colors";
 import { KovshIcon, VagonIcon } from "../icons";
+import { ConfigurationsContext } from "../infrastructure/configurations/configurations-context/configurations-context";
+import { MineBunkerConfiguration } from "../business/monitoring/configurations/mine-bunker-configuration";
+import { useTrendSubscription } from "../infrastructure/subscription-hooks/use-trend-subscription";
+import { getMineBunkerLevelIndicatorState } from "../infrastructure/equipment-indicators/get-mine-bunker-level-indicator-state";
+import { MineBunkerModel } from "../infrastructure/equipment-indicators/mine-bunker/models/mine-bunker-model";
+import { getPositiveValueOrZero } from "../infrastructure/utils/getPositiveValueOrZero";
+import { ElementIds } from "../business/monitoring/configurations/elements/element-ids";
 
 export type BunkerProps = {
   kovsh?: number;
@@ -40,6 +47,18 @@ export const Bunker = ({ value, title, kovsh, vagon, filled }: BunkerProps) => {
   const padding = useMemo(() => unavailable ? '0.1875rem' : '0.25rem', [unavailable]);
 
   const blockStyle = useMemo(() => ({ ...BLOCK_STYLE, ...(unavailable ? RED_BORDER_BG : {}) }), [unavailable]);
+
+  const {configurations} = useContext(ConfigurationsContext);
+  const configuration = configurations.find((x) => x.elementId === ElementIds.MINE_BUNKER_1);
+  const weight = useTrendSubscription(configuration instanceof MineBunkerConfiguration ? configuration.weightTrend?.trendId : undefined);
+
+  const state = getMineBunkerLevelIndicatorState(weight, configuration);
+
+  const mineBunkerModel = useMemo(() => {
+      return new MineBunkerModel(getPositiveValueOrZero(weight), 'T');
+  }, [weight]);
+
+  console.log(state, mineBunkerModel);
 
   return (
     <Stack style={blockStyle}>

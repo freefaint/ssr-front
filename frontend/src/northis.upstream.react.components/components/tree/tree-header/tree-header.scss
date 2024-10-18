@@ -1,0 +1,32 @@
+.treeHeaderExpandAllIcon,
+.treeHeaderCollapseAllIcon {
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+}
+
+.treeHeaderRootMulti {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  :first-child {
+    flex-basis: auto;
+  }
+  :not(:first-child) {
+    flex-grow: 1;
+  }
+}
+
+.treeHeaderRootSingle {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  > * {
+    flex-grow: 1;
+  }
+}
+
+.treeHeaderCheckbox {
+  padding: 0;
+}

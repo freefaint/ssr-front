@@ -1,0 +1,57 @@
+import type {Middleware} from '@reduxjs/toolkit';
+import {isRejectedWithValue} from '@reduxjs/toolkit';
+import {showExpiredDialogKey, SnackbarMessage, technicalErrorSnackbarMessage} from 'northis.react.components';
+import {hasValue, hasValueNotEmpty, LoggerService} from 'northis.typescript.utils';
+// import {NAVIGATION_RESOURCE_PATH} from '../routing/navigation-resources';
+// import {router} from '../routing/routing';
+// import {SnackbarUtils} from '../snackbar/snackbar-utils';
+import {CommonQueryArgs} from './common-query-args';
+
+const FAILED_REQUEST_MESSAGE = 'Ошибка. Не удалось выполнить запрос.';
+
+/**
+ * Представляет middleware для логирования ошибок.
+ * @param logger Экземпляр сервиса логирования.
+ */
+export const errorLoggingMiddleware =
+    (logger: LoggerService): Middleware =>
+    (store) =>
+    (next) =>
+    (action) => {
+        if (isRejectedWithValue(action)) {
+            if (action.payload?.status === 401 || action.payload?.originalStatus === 401) {
+                if (!hasValue(localStorage.getItem(showExpiredDialogKey))) {
+                    router.navigate(
+                        `${NAVIGATION_RESOURCE_PATH.unauthorized}?redirectTo=${window.location.pathname}${window.location.search}`,
+                        {replace: true},
+                    );
+                }
+                return next(action);
+            }
+
+            const err = action.payload.data.title;
+            if (hasValue(err)) {
+                showSnackbarIfAllowed(action, technicalErrorSnackbarMessage(hasValueNotEmpty(err) ? err : FAILED_REQUEST_MESSAGE));
+            } else {
+                logger.fatal(FAILED_REQUEST_MESSAGE, action.error);
+                showSnackbarIfAllowed(action, technicalErrorSnackbarMessage(FAILED_REQUEST_MESSAGE));
+            }
+        } else if (action.error) {
+            if (typeof action.error === 'string') {
+                logger.error(action.error);
+                showSnackbarIfAllowed(action, technicalErrorSnackbarMessage(action.error));
+            } else {
+                logger.fatal(FAILED_REQUEST_MESSAGE, action.error);
+                showSnackbarIfAllowed(action, technicalErrorSnackbarMessage(FAILED_REQUEST_MESSAGE));
+            }
+        }
+        return next(action);
+    };
+
+function showSnackbarIfAllowed(action: any, msg: SnackbarMessage): void {
+    const originalArgs = action.meta.arg.originalArgs;
+    if (originalArgs instanceof CommonQueryArgs && originalArgs.skipError) {
+        return;
+    }
+    SnackbarUtils.show(msg);
+}

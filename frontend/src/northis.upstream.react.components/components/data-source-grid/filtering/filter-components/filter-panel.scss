@@ -1,0 +1,33 @@
+.filterPanelContainer {
+  .separatedLeftButton.MuiButton-root {
+    margin-right: auto;
+  }
+}
+
+.filterPanelTitle .MuiDialogTitle-root {
+  background-color: var(--white);
+  padding: 16px 16px 10px 16px;
+  color: var(--gray-600);
+  text-transform: none;
+  font-family: Roboto;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 110%;
+}
+
+.filterPanelDialogContent .MuiDialogContent-root {
+  padding-top: 0 !important;
+}
+
+.dataRangeContainer {
+  display: flex;
+  gap: 12px;
+}
+
+.separator {
+  display: flex;
+  align-items: center;
+  width: 20px;
+  justify-content: center;
+}

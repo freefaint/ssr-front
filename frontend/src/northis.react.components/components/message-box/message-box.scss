@@ -1,0 +1,24 @@
+// Переопределение MuiDialogContentText-root напрямую применяется ко всем диалогам, которые импортируются в том же файле что и окно сообщения.
+.messageBoxDialogContentText {
+  color: #1a1919;
+}
+
+.messageBoxDialogActions {
+  justify-content: space-between;
+
+  .MuiButton-root {
+    flex-grow: 1;
+  }
+}
+
+.messageBoxDialogSingleButtonActions {
+  .MuiDialogActions-root {
+    justify-content: center;
+  }
+}
+
+.messageBoxDialog {
+  .MuiPaper-root {
+    width: 296px;
+  }
+}

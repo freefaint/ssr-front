@@ -1,0 +1,65 @@
+.chipsListRoot {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    row-gap: 8px;
+    column-gap: 16px;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.chipRoot.MuiChip-root {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    color: #ffffff;
+    background-color: #4dabef;
+    height: 24px;
+    border-radius: 12px;
+    gap: 6px;
+    padding: 0 12px;
+
+    > .MuiChip-label {
+        display: flex;
+        align-items: center;
+        padding: 0;
+    }
+    > .MuiChip-deleteIcon {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        border-radius: inherit;
+    }
+}
+
+.chipDeleteIconSvg {
+    fill: #ffffff;
+    width: 10px;
+    height: 10px;
+    > svg {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+.chipClearButton {
+    font-family: Roboto;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 17px;
+    color: #1976d2;
+    cursor: pointer;
+}
+
+.separatedLeftButton.MuiButton-root {
+    margin-right: auto;
+}
+
+.dialogPopover.MuiPopover-root {
+    .MuiPopover-paper {
+        background-color: #ffffff;
+        border-radius: 4px;
+    }
+}

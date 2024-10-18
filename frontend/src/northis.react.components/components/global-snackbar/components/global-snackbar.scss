@@ -1,0 +1,78 @@
+// Кнопка действия.
+.northisActionButton {
+  font-weight: 500;
+  color: var(--100);
+  font-size: 14px;
+  line-height: 16px;
+}
+
+// Кнопка закрытия уведомления.
+.northisCloseButton {
+  svg {
+    fill: var(--10);
+  }
+
+  &:hover {
+    background-color: transparent;
+  }
+}
+
+.northisSnackbar {
+  // Хотя логичнее применять стилизацию к Alert напрямую, но это не работает по какой-то причине.
+  :global(.MuiAlert-root) {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 256px;
+    min-height: 48px;
+    overflow: hidden;
+  }
+
+  :global(.MuiAlert-action) {
+    padding: 0;
+    align-items: center;
+    gap: 32px;
+  }
+
+  :global(.MuiAlert-message) {
+    font-family: Roboto;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    color: var(--10);
+  }
+
+  // Уведомление с предостережением.
+  :global(.MuiAlert-filledWarning) {
+    background-color: var(--red);
+
+    :local(.northisActionButton) {
+      color: var(--yellow);
+    }
+  }
+
+  // Уведомление с успехом.
+  :global(.MuiAlert-filledSuccess) {
+    background-color: var(--green);
+  }
+
+  // Уведомление с ошибкой.
+  :global(.MuiAlert-filledError) {
+    background-color: var(--00);
+
+    :global(.MuiAlert-message) {
+      color: var(--red);
+      max-height: 192px;
+    }
+
+    :local(.northisCloseButton) {
+      svg {
+        fill: var(--50);
+      }
+    }
+
+    :local(.northisActionButton) {
+      color: var(--brand-color);
+    }
+  }
+}

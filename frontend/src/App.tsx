@@ -8,12 +8,22 @@ import { Loading } from "./components/loading";
 import { COMPONENTS } from "./components/constants";
 import { Href } from "./components/types";
 import { ready, Bridge } from "@expressms/smartapp-sdk";
+import { store } from "./infrastructure/redux/app/store";
+import {Provider} from 'react-redux';
+import { ConfigurationsProvider } from "./infrastructure/configurations/configurations-context/configurations-provider";
+import { SignalRConnectorProvider } from "./infrastructure/hub-connector/signal-r-connector-provider";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter basename='/'>
-        <Site />
+        <Provider store={store}>
+          <ConfigurationsProvider>
+            <SignalRConnectorProvider>
+              <Site />
+            </SignalRConnectorProvider>
+          </ConfigurationsProvider>
+        </Provider>
       </BrowserRouter>
     </ThemeProvider>
   );

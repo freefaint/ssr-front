@@ -6,6 +6,7 @@ export interface Page {
 }
 
 export enum Href {
+  Index = "/index.html",
   Main = "/",
   Vesp = "/vesp",
   Dry = "/dry",

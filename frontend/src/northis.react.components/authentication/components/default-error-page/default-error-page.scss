@@ -1,0 +1,25 @@
+.default-error-page-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+
+  .error-code {
+    font-size: 200px;
+    font-weight: 100;
+  }
+
+  .main-text {
+  }
+
+  .second-text {
+  }
+
+  .actions {
+    display: flex;
+    gap: 24px;
+  }
+}

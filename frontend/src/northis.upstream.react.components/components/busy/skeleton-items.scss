@@ -1,0 +1,14 @@
+.MuiSkeleton-root {
+    background-color: #f0f2f3;
+    min-height: 30px;
+    margin: 0 8px;
+}
+
+.skeletonItem {
+    margin: 0;
+}
+
+.skeletonItemsContainer {
+    display: flex;
+    flex-direction: column;
+}

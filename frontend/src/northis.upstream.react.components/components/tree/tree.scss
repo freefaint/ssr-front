@@ -1,0 +1,96 @@
+.treeRoot {
+  overflow: auto;
+  height: 100%;
+}
+
+.treeItemRoot {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  cursor: pointer;
+}
+
+.treeItemContent {
+  width: 100%;
+  display: flex;
+  gap: 4px;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  border-bottom: 1px solid var(--gray-80);
+}
+
+.treeItemIcon {
+  svg {
+    width: 12px;
+    height: 12px;
+    fill: var(--gray-500);
+  }
+
+  width: 24px;
+  min-width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.treeItemCheckbox {
+  padding: 0 0 0 4px;
+}
+
+.treeItemLabel {
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  padding: 5px 0;
+  width: 100%;
+}
+
+.treeItemRootSelected {
+  > .treeItemContent {
+    background-color: var(--list-select);
+  }
+}
+
+.treeItemRootExpanded {
+}
+
+.treeItemRootNotSelectable > .treeItemContent > .treeItemCheckbox {
+  visibility: hidden;
+}
+
+.treeItemIndent {
+  width: 24px;
+}
+
+.treeItemSubtree {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.treeRootSkeletonItem {
+  width: 100%;
+  margin: 0;
+}
+
+.treeRootSkeleton {
+  padding: 0 8px;
+}
+
+.treeItemLoading {
+  display: flex;
+  flex-direction: row;
+}
+
+.treeItemSkeletonStack {
+  width: 400px;
+  padding-left: 4px;
+}
+
+.treeItemSkeleton {
+  padding: 8px;
+  width: 100%;
+}
