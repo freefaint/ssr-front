@@ -1,5 +1,5 @@
 import { Stack, Typography } from "@mui/material";
-import { CSSProperties, useContext, useMemo } from "react";
+import { CSSProperties, useContext, useEffect, useMemo, useState } from "react";
 import { BLACK, GREEN, ORANGE, RED } from "../styles/colors";
 import { KovshIcon, VagonIcon } from "../icons";
 import { ConfigurationsContext } from "../infrastructure/configurations/configurations-context/configurations-context";
@@ -9,6 +9,7 @@ import { getMineBunkerLevelIndicatorState } from "../infrastructure/equipment-in
 import { MineBunkerModel } from "../infrastructure/equipment-indicators/mine-bunker/models/mine-bunker-model";
 import { getPositiveValueOrZero } from "../infrastructure/utils/getPositiveValueOrZero";
 import { ElementIds } from "../business/monitoring/configurations/elements/element-ids";
+import { requestViaBridge } from "./smartapp";
 
 export type BunkerProps = {
   kovsh?: number;
@@ -51,6 +52,28 @@ export const Bunker = ({ value, title, kovsh, vagon, filled }: BunkerProps) => {
   const {configurations} = useContext(ConfigurationsContext);
   const configuration = configurations.find((x) => x.elementId === ElementIds.MINE_BUNKER_1);
   const weight = useTrendSubscription(configuration instanceof MineBunkerConfiguration ? configuration.weightTrend?.trendId : undefined);
+
+  console.log('config', configuration);
+
+  const [weightData, setWeightData] = useState(null);
+
+  useEffect(() => {
+    const update = () => {
+      if (configuration instanceof MineBunkerConfiguration) {
+        requestViaBridge(`carriages/currentweight?trendIds=${configuration.weightTrend?.trendId}`).then(setWeightData);
+      }
+    }
+
+    update();
+
+    const timer = setInterval(update, 5000);
+
+    return () => {
+      clearInterval(timer);
+    }
+  });
+  
+  console.log('weight data', weightData);
 
   const state = getMineBunkerLevelIndicatorState(weight, configuration);
 
