@@ -2,6 +2,7 @@ import { Avatar, Divider, IconButton, List, ListItemButton, Stack, Typography } 
 import { ChevronIcon, CloseIcon } from "../icons"
 import { Link, useLocation } from "react-router-dom";
 import { PAGES } from "./constants";
+import { getUserGivenName, getUserImage } from "northis.react.components";
 
 export const Menu = ({ onClose }: { onClose: () => void }) => {
   const { pathname } = useLocation();
@@ -16,8 +17,8 @@ export const Menu = ({ onClose }: { onClose: () => void }) => {
       </Stack>
 
       <Stack direction="row" alignItems="center" spacing={2}>
-        <Avatar>A</Avatar>
-        <Typography variant="h2">Andrey Tereshchenko</Typography>
+        <Avatar src={getUserImage() ?? undefined}>{getUserGivenName()?.substring(0, 1)}</Avatar>
+        <Typography variant="h2">{getUserGivenName()}</Typography>
       </Stack>
 
       <Stack style={{ marginLeft: "-16px", marginRight: "-16px" }}>
