@@ -5,6 +5,7 @@ import Section from "../components/section";
 import { RATING_NODE, INFO_NODE } from "../mock";
 import { ElementIds } from "../business/monitoring/configurations/elements/element-ids";
 import { useBunker } from "hooks/useRudnik";
+import { useFunnel } from "hooks/useFunnel";
 
 
 const BUNKERS: BunkerProps[] = new Array(20).fill(true).map(i => ({
@@ -18,6 +19,10 @@ const BUNKERS: BunkerProps[] = new Array(20).fill(true).map(i => ({
 const RudnikPage = () => {
   const { state: state1, model: model1, max: max1 } = useBunker(ElementIds.MINE_BUNKER_1);
   const { state: state2, model: model2, max: max2 } = useBunker(ElementIds.MINE_BUNKER_2);
+  const { state: state11 } = useFunnel(ElementIds.UNDERGROUND_MINE_FUNNEL_1);
+  const { state: state12 } = useFunnel(ElementIds.UNDERGROUND_MINE_FUNNEL_2);
+  const { state: state21 } = useFunnel(ElementIds.UNDERGROUND_MINE_FUNNEL_3);
+  const { state: state22 } = useFunnel(ElementIds.UNDERGROUND_MINE_FUNNEL_4);
 
   return (
     <Stack spacing={2}>

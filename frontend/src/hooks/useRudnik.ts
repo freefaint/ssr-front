@@ -24,8 +24,8 @@ export const useBunker = (id: typeof ElementIds[keyof typeof ElementIds]) => {
       // setRand(new Decimal(Math.round(Math.random() * 5000)));
 
       if (configuration instanceof MineBunkerConfiguration) {
-        requestViaBridge(`carriages/currentweight?trendIds=${configuration.weightTrend?.trendId}`).then(resp => setCurrentWeightData(new Decimal(resp)));
-      }
+        requestViaBridge(`carriages/currentweight?trendIds=${configuration.weightTrend?.trendId}`).then(resp => setCurrentWeightData(new Decimal(resp / 2)));
+      } // TODO: why divide to 2
     }
 
     update();
