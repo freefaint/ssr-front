@@ -39,9 +39,11 @@ export const axiosBaseQuery =
             //     paramsSerializer: {indexes: null},
             //     timeout: extraOptions?.timeout,
             // });
-            return createDataResult(res.payload.data, {
+            const result = createDataResult(res.payload.data, {
                 
             });
+            console.log(result, 'result');
+            return result;
         } catch (axiosError) {
             let err = axiosError as AxiosError;
             return createErrorResult(new NetworkError(err.response?.status, err.response?.data || err.message));
