@@ -2,6 +2,7 @@ import {BaseQueryFn} from '@reduxjs/toolkit/query';
 import {AxiosError, AxiosInstance, AxiosRequestConfig} from 'axios';
 import {NetworkError} from './network-error';
 import {createDataResult, createErrorResult, QueryResult} from './query-result';
+import { requestViaBridge } from 'components/smartapp';
 
 /**
  * Представляет адаптер для redux и axios.
@@ -27,17 +28,19 @@ export const axiosBaseQuery =
         try {
             // Для запросов с множественными параметрами формат без настройки paramsSerializer
             // имел вид ?a[]=b&a[]=c, нам необходимо без индексов.
-            const result = await axios.request({
-                url: url,
-                method,
-                data: body,
-                headers: headers,
-                params,
-                paramsSerializer: {indexes: null},
-                timeout: extraOptions?.timeout,
-            });
-            return createDataResult(result.data, {
-                contentDisposition: result.headers['content-disposition'],
+            console.log('trying', url);
+            const res = await requestViaBridge(url);
+            // const result = await axios.request({
+            //     url: url,
+            //     method,
+            //     data: body,
+            //     headers: headers,
+            //     params,
+            //     paramsSerializer: {indexes: null},
+            //     timeout: extraOptions?.timeout,
+            // });
+            return createDataResult(res.data, {
+                contentDisposition: res.headers['content-disposition'],
             });
         } catch (axiosError) {
             let err = axiosError as AxiosError;

@@ -21,7 +21,7 @@ const buildSearchParams = (
 	return searchParams;
 };
 
-const requestViaBridge = async (requestUrl: string) => {
+export const requestViaBridge = async (requestUrl: string) => {
 	const response = await bridge?.sendBotEvent({
     method: `${'GET'} ${BASE_URL}${requestUrl}`,
     params: {},
