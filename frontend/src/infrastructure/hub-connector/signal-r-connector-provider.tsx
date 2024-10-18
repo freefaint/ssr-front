@@ -13,7 +13,6 @@ export const CONNECTOR = UpstreamConnector(`${environment.connectionString}Gatew
     const errorMessage = 'Ошибка при попытке соединения с SignalR';
     // loggerInstance.error(errorMessage, err);
     // SnackbarUtils.show(technicalErrorSnackbarMessage(errorMessage));
-    console.log(123);
 });
 
 /**
