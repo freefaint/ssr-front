@@ -14,6 +14,8 @@ namespace Bivgroup.YagokSSR.SmartApp.PGContext
 
         }
         public DbSet<SynapseUser> SynapseUsers{ get; set; }
+        public DbSet<NotificationChannel> NotificationChannels  { get; set; }
+        public DbSet<NotificationSubscription> NotificationSubscriptions { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
            

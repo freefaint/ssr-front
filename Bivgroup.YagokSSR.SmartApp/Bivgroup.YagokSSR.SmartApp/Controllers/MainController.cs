@@ -81,6 +81,15 @@ public class MainController
                     case "DELETE":
                         result = await httpClient.DeleteAsync(url);
                         break;
+                    //case "SUBSCIPTION":
+                    //    result = null;
+                    //    break;
+                    //case "CHANNEL_PUT":
+                    //    result = null;
+                    //    break;
+                    //case "CHANNELS_GET":
+                    //    result = null;
+                    //    break;
                     default: throw new ArgumentException();
                 }
 
