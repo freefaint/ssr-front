@@ -36,8 +36,6 @@ export const useBunker = (id: typeof ElementIds[keyof typeof ElementIds]) => {
       clearInterval(timer);
     }
   }, [configuration]);
-  
-  console.log('weight data', currentWeightData);
 
   const state = getMineBunkerLevelIndicatorState(currentWeightData, configuration);
 
@@ -45,7 +43,7 @@ export const useBunker = (id: typeof ElementIds[keyof typeof ElementIds]) => {
       return new MineBunkerModel(getPositiveValueOrZero(currentWeightData), 'T');
   }, [currentWeightData]);
 
-  console.log('sate', state, model);
+  console.log('rudnik graph weight', { currentWeightData, state, model });
 
   return {
     state,

@@ -6,6 +6,7 @@ import { RATING_NODE, INFO_NODE } from "../mock";
 import { ElementIds } from "../business/monitoring/configurations/elements/element-ids";
 import { useBunker } from "hooks/useRudnik";
 import { useFunnel } from "hooks/useFunnel";
+import { useRudnikData } from "hooks/useRudnikData";
 
 
 const BUNKERS: BunkerProps[] = new Array(20).fill(true).map(i => ({
@@ -16,16 +17,21 @@ const BUNKERS: BunkerProps[] = new Array(20).fill(true).map(i => ({
   vagon: Math.random() < 0.2 ? 0 : Math.round(Math.random() * 100),
 }))
 
-const RudnikPage = () => {
+const RudnikPage = ({ short }: { short?: boolean }) => {
   const { state: state1, model: model1, max: max1 } = useBunker(ElementIds.MINE_BUNKER_1);
   const { state: state2, model: model2, max: max2 } = useBunker(ElementIds.MINE_BUNKER_2);
-  // const { state: state11 } = useFunnel(ElementIds.UNDERGROUND_MINE_FUNNEL_1);
-  // const { state: state12 } = useFunnel(ElementIds.UNDERGROUND_MINE_FUNNEL_2);
-  // const { state: state21 } = useFunnel(ElementIds.UNDERGROUND_MINE_FUNNEL_3);
-  // const { state: state22 } = useFunnel(ElementIds.UNDERGROUND_MINE_FUNNEL_4);
+
+  const { state: state11 } = useFunnel(ElementIds.UNDERGROUND_MINE_FUNNEL_1);
+  const { state: state12 } = useFunnel(ElementIds.UNDERGROUND_MINE_FUNNEL_2);
+  const { state: state21 } = useFunnel(ElementIds.UNDERGROUND_MINE_FUNNEL_3);
+  const { state: state22 } = useFunnel(ElementIds.UNDERGROUND_MINE_FUNNEL_4);
+
+  const data = useRudnikData(ElementIds.UNDERGROUND_MINE_PARAMETER_1);
+
+  console.log('bunkerData', data);
 
   return (
-    <Stack spacing={2}>
+    <>
       <Stack direction="row" spacing={2}>
         <GraphBlock value={model1.weight.toDP(2).toNumber()} max={max1} />
 
@@ -52,22 +58,24 @@ const RudnikPage = () => {
         ]}
       />
 
-      <Paper>
-        <Grid2 container spacing={1}>
-          {BUNKERS.map((i, j) => (
-            <Grid2 key={j} size={3}>
-              {/* <MineBunkerData
-                id={ElementIds.MINE_BUNKER_1}
-                configName={'Бункер 1'}
-                label={'Бункер 1'}
-                measure={'т'}
-              /> */}
-              <Bunker {...i} />
-            </Grid2>  
-          ))}
-        </Grid2>
-      </Paper>
-    </Stack>
+      {!short && (
+        <Paper>
+          <Grid2 container spacing={1}>
+            {BUNKERS.map((i, j) => (
+              <Grid2 key={j} size={3}>
+                {/* <MineBunkerData
+                  id={ElementIds.MINE_BUNKER_1}
+                  configName={'Бункер 1'}
+                  label={'Бункер 1'}
+                  measure={'т'}
+                /> */}
+                <Bunker {...i} />
+              </Grid2>  
+            ))}
+          </Grid2>
+        </Paper>
+      )}
+    </>
   )
 }
 

@@ -7,7 +7,7 @@ import { useContext, useEffect, useMemo, useState } from "react";
 
 export const useFunnel = (id: typeof ElementIds[keyof typeof ElementIds]) => {
   const {configurations} = useContext(ConfigurationsContext);
-  const configuration = useMemo(() => configurations.find((x) => x.elementId === id), [configurations, id]);;
+  const configuration = useMemo(() => configurations.find((x) => x.elementId === id), [configurations, id]);
   // const weight = useTrendSubscription(configuration instanceof FunnelConfiguration ? configuration.stateTrend?.trendId : undefined);
 
   console.log('config', configuration);
@@ -32,13 +32,9 @@ export const useFunnel = (id: typeof ElementIds[keyof typeof ElementIds]) => {
     }
   }, [configuration]);
   
-  console.log('weight data', currentData);
-
-  const state = getFunnelState(currentData, configuration);
-
-  console.log('sate', state);
+  console.log('rudnik funnel data', currentData);
 
   return {
-    state
+    state: currentData
   }
 }

@@ -1,0 +1,19 @@
+.funnelNotConf {
+  stroke: var(--grey-70);
+  fill: var(--grey-80);
+}
+
+.funnelWorking {
+  stroke: var(--green-30);
+  fill: var(--green-50);
+}
+
+.funnelOff {
+  stroke: var(--grey-50);
+  fill: var(--grey-80);
+}
+
+.funnelError {
+  stroke: var(--red-40);
+  fill: var(--grey-80);
+}

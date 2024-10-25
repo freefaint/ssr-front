@@ -2,7 +2,7 @@ import {BaseQueryFn} from '@reduxjs/toolkit/query';
 import {AxiosError, AxiosInstance, AxiosRequestConfig} from 'axios';
 import {NetworkError} from './network-error';
 import {createDataResult, createErrorResult, QueryResult} from './query-result';
-import { requestViaBridge } from 'components/smartapp';
+import { requestViaBridge, requestViaFetch } from 'components/smartapp';
 
 /**
  * Представляет адаптер для redux и axios.
@@ -28,7 +28,8 @@ export const axiosBaseQuery =
         try {
             // Для запросов с множественными параметрами формат без настройки paramsSerializer
             // имел вид ?a[]=b&a[]=c, нам необходимо без индексов.
-            const res = await requestViaBridge(url);
+            // const res = await requestViaBridge(url);
+            const res = await requestViaFetch(url);
             // const result = await axios.request({
             //     url: url,
             //     method,

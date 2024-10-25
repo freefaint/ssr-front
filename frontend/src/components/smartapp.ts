@@ -46,9 +46,12 @@ export const requestViaBridge = async (requestUrl: string) => {
 /**
  * используется в DEV режиме, так как нет доступа к bridge для отправки запросов через бота.
  */
-const requestViaFetch = async (requestUrl: string, fetchOptions: FetchOptions = {}) => {
-  const response = await fetch(`${BASE_URL}${requestUrl}`, {
+export const requestViaFetch = async (requestUrl: string, fetchOptions: FetchOptions = {}) => {
+  const response = await fetch(`/api/v2/${requestUrl}`, {
     ...fetchOptions,
+    headers: {
+      'Authorization': 'Bearer SFMyNTY.g2gDdAAAAAdkAApfX3N0cnVjdF9fZAAhRWxpeGlyLlBsdWcuQ2NzQXV0aC5Vc2VyQXV0aFRva2VuZAAGY3RzX2lkbQAAACQ5MTM5ZDM0MS1lNWUxLTVhMzktOGRlOC03ZjBkODU1NTEyNTlkAAZydHNfaWRkAANuaWxkAAp0b2tlbl9tZXRhdAAAAABkAAR1ZGlkbQAAACRiZGQ3YWEyMy01Y2M4LTUxMzItYjhiMi00MWM1YjU0ZDc4YzJkAAl1c2VyX2h1aWRtAAAAJGJkYTQ1NWU4LWEwYmYtNTlkZS04MDhjLTYwMmE5ZDI1YzI0MWQACXVzZXJfa2luZGQAA25pbG4GAL_asHaSAWIAAVGA.mu2hR_7fgqcr6xZQ7By9LlciDkYgltk0XsfKFERElTk'
+    }
   });
 
   if (!response.ok) {

@@ -2,11 +2,13 @@ import { Stack } from "@mui/material";
 import Alert, { ALERT_STATUS } from "../components/alert";
 import Section from "../components/section";
 import { GRAPH_NODE, RATING_NODE, INFO_NODE, STATUS_NODE } from "../mock";
+import RudnikPage from "./rudnik";
 
 const MainPage = () => {
   return (
     <Stack spacing={2}>
-      <Section
+      <RudnikPage short={true} />
+      {/* <Section
         title="Рудник подземный"
         href="/rudnik"
         bodies={[
@@ -30,7 +32,7 @@ const MainPage = () => {
             statusNode: STATUS_NODE
           }
         ]}
-      />
+      /> */}
 
       <Alert color="warning" title="ВЭСП" status={ALERT_STATUS["warning"]} text="00:00:00" />
       <Alert color="error" title="ВЭСП" status={ALERT_STATUS["error"]} text="00:00:00" />
