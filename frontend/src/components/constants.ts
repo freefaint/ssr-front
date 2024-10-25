@@ -4,6 +4,8 @@ import MainPage from "../pages/main";
 import RudnikPage from "../pages/rudnik";
 import VespPage from "../pages/vesp";
 import { Page, Href } from "./types";
+import ChannelsPage from "pages/channels";
+import SubscriptionsPage from "pages/subscriptions";
 
 export const PAGES: Page[] = [
   {
@@ -52,5 +54,7 @@ export const COMPONENTS: Partial<Record<Href, FC>> = {
   [Href.Main]: MainPage,
   [Href.Rudnik]: RudnikPage,
   [Href.Vesp]: VespPage,
-  [Href.Fabric]: FabricPage
+  [Href.Fabric]: FabricPage,
+  [Href.Channels]: ChannelsPage,
+  [Href.Subscriptions]: SubscriptionsPage,
 };

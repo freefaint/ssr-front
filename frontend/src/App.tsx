@@ -1,5 +1,5 @@
 import { ThemeProvider } from "@emotion/react";
-import { BrowserRouter, Routes, Route, useNavigate, useLocation, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate, useLocation, Navigate, matchPath } from "react-router-dom";
 import { theme } from "./styles/theme";
 import { useEffect, useMemo, useState } from "react";
 import { Header } from "./components/header";
@@ -45,8 +45,7 @@ export const Site = () => {
   }, []);
 
   const path = useMemo(() => pathname.indexOf("/api/v1") === 0 ? "/" : pathname, [pathname]);
-
-  const error = useMemo(() => !COMPONENTS[path as Href], [path]);
+  const error = useMemo(() => !Object.keys(COMPONENTS).some((key) => matchPath(key, path)), [path]);
 
   return (
     <>

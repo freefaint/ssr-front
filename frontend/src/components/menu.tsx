@@ -44,7 +44,7 @@ export const Menu = ({ onClose }: { onClose: () => void }) => {
       </Stack>
 
       <Stack>
-        <Link onClick={onClose} to="/settings" style={{ color: "inherit", textDecoration: "none" }}>
+        <Link onClick={onClose} to="/channels" style={{ color: "inherit", textDecoration: "none" }}>
           <ListItemButton>
             <Stack direction="row" alignItems="center" justifyContent="space-between" width="100%">
               <Typography variant="h3">Настроить уведомления</Typography>

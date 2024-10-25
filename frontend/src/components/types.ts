@@ -5,6 +5,18 @@ export interface Page {
   href: Href;
 }
 
+export interface NotificationSubscription
+{
+	id: string;
+	fullName: string;
+	userId: string;
+	synapseId: string;
+	subscriptionChannelId: string;
+	creationDate: string;
+	lastTriggerDate: string;
+	enabled: boolean;
+}
+
 export enum Href {
   Index = "/index.html",
   Main = "/",
@@ -14,5 +26,7 @@ export enum Href {
   PSK = "/psk",
   Complex = "/complex",
   Rudnik = "/rudnik",
-  Air = "air"
+  Air = "air",
+  Channels = "/channels",
+  Subscriptions = "/channels/:id/:name",
 }

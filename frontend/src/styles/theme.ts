@@ -273,6 +273,52 @@ export const theme = createTheme({
           }
         }
       ]
+    },
+
+    MuiFormControlLabel: {
+      styleOverrides: {
+        root: {
+          fontSize: "18px",
+          lineHeight: "21.6px",
+          flexDirection: 'row-reverse',    
+          justifyContent: 'space-between',
+          margin: 0,
+          marginLeft: '16px',
+        }
+      },
+    },
+    
+    MuiSwitch: {
+      styleOverrides: {
+        root: {
+          fontSize: "18px",
+          lineHeight: "21.6px",
+          flexDirection: 'row-reverse',    
+          justifyContent: 'space-between',
+          margin: 0,
+          marginLeft: '16px',
+          padding: '9px',
+        },
+        switchBase: {
+          margin: '2px',
+          color: '#131313',
+          opacity: 1,
+          '&.Mui-checked': {
+            color: '#FFFFFF',
+            '& + .MuiSwitch-track': {
+              opacity: 1,
+            }
+          }
+        },
+        thumb: {
+          width: '16px',
+          height: '16px',
+        },
+        track: {
+          backgroundColor: '#FFFFFF26',
+          borderRadius: '20px',
+        },
+      },
     }
   },
 
