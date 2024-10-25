@@ -8,5 +8,7 @@
         public string? SynapseName { get; set; }
         public string? Comment { get; set; }
         public bool isBlocked { get; set; }
+
+        public bool isServiceAdmin { get; set; }
     }
 }
